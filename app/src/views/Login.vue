@@ -53,6 +53,8 @@ export default {
                     })
                 },
                 function(err) {
+                    //TODO: display Buefy error dialog
+                    //TODO: add a button for getting a password via or contact the admin
                     alert('Error occurred. ' + err.message);
                 }
             )
