@@ -93,8 +93,8 @@
                             </b-field>
                             <b-field label="27. ตั้งแต่ผู้ป่วยได้รับการวินิจฉัยว่าเป็นโรคนี้ ญาติ/ผู้ดูแลหลักมีการจัดหาสิ่งต่อไปนี้หรือไม่">
                                 <div class="block">
-                                    <b-radio v-model="provideStuff" size="is-medium" name="provideStuff" native-value="มี">ใช่</b-radio>
-                                    <b-radio v-model="provideStuff" size="is-medium" name="provideStuff" native-value="ไม่ใช่">ไม่ใช่</b-radio>
+                                    <b-radio v-model="providedStuff" size="is-medium" name="providedStuff" native-value="มี">ใช่</b-radio>
+                                    <b-radio v-model="providedStuff" size="is-medium" name="providedStuff" native-value="ไม่ใช่">ไม่ใช่</b-radio>
                                 </div>
                             </b-field>
                             <b-message title="รายการ" type="is-warning" :closable="false">
@@ -139,7 +139,7 @@
                                 ย้อนกลับ
                             </a>
                             <a class="button is-medium is-primary"
-                               href="">
+                               href="/overhead">
                                 ต่อไป
                             </a>
                         </div>
@@ -185,7 +185,8 @@
                 equipmentCost: null,
                 assistantWage: null,
                 maidWage: null,
-                careGiverWage: null
+                careGiverWage: null,
+                providedStuff: null,
             }
         }
     }
