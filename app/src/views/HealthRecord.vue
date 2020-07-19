@@ -413,10 +413,11 @@
                         </b-message>
                         <div class="buttons is-centered">
                             <a class="button is-medium is-light">
-                                Back
+                                ย้อนกลับ
                             </a>
-                            <a class="button is-medium is-primary">
-                                Next
+                            <a class="button is-medium is-primary"
+                                href="/patient-capital">
+                                ต่อไป
                             </a>
                         </div>
                     </div>
