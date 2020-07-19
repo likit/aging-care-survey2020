@@ -82,6 +82,56 @@
                             <b-field>
                                 <FamilyHelper></FamilyHelper>
                             </b-field>
+                            <b-field label="26. ญาติ/ผู้ดูแลหลักของผู้ป่วย พักอยู่บ้านเดียวกับผู้ป่วยหรือไม่">
+                                <div class="block">
+                                    <b-radio v-model="stayWithFamily" size="is-medium" name="stayWithFamily" native-value="มี">ใช่</b-radio>
+                                    <b-radio v-model="stayWithFamily" size="is-medium" name="stayWithFamily" native-value="ไม่ใช่">ไม่ใช่</b-radio>
+                                </div>
+                            </b-field>
+                            <b-field label="เสียค่าใช้จ่ายในการเดินทางไปกลับบ้านผู้ป่วยเฉลี่ยเท่ากับ" v-if="stayWithFamily==='ไม่ใช่'">
+                                <b-input type="number" v-model="commuteCost" step="any" placeholder="จำนวนบาท"></b-input>
+                            </b-field>
+                            <b-field label="27. ตั้งแต่ผู้ป่วยได้รับการวินิจฉัยว่าเป็นโรคนี้ ญาติ/ผู้ดูแลหลักมีการจัดหาสิ่งต่อไปนี้หรือไม่">
+                                <div class="block">
+                                    <b-radio v-model="provideStuff" size="is-medium" name="provideStuff" native-value="มี">ใช่</b-radio>
+                                    <b-radio v-model="provideStuff" size="is-medium" name="provideStuff" native-value="ไม่ใช่">ไม่ใช่</b-radio>
+                                </div>
+                            </b-field>
+                            <b-message title="รายการ" type="is-warning" :closable="false">
+                                <div class="block">
+                                    <b-field label="ผู้ดูแลผู้ป่วย">
+                                        <b-input placeholder="ระบุอัตราจ้างต่อเดือน" v-model="careGiverWage"></b-input>
+                                    </b-field>
+                                    <b-field label="ผู้ดูแลทำงานบ้านเนื่องจากการเจ็บป่วยของผู้ป่วย ทำให้ไม่สามารถทำเองได้">
+                                        <b-input placeholder="ระบุอัตราจ้างต่อเดือน" v-model="maidWage"></b-input>
+                                    </b-field>
+                                    <b-field label="ผู้ดูแลบุตรหรือบุพการี เนื่องจากการเจ็บป่วยของผู้ป่วย ทำให้ไม่สามารถดูแลได้">
+                                        <b-input placeholder="ระบุอัตราจ้างต่อเดือน" v-model="assistantWage"></b-input>
+                                    </b-field>
+                                    <b-field label="อุปกรณ์ช่วยเหลือต่าง ๆ ของผู้ป่วยเช่น ไม้เท้า รถเข็น ถังออกซิเจน">
+                                        <div class="block">
+                                            <b-input placeholder="ระบุชนิดอุปกรณ์" v-model="equipment"></b-input>
+                                            <b-input placeholder="จำนวนเงิน" v-model="equipmentCost"></b-input>
+                                        </div>
+                                    </b-field>
+                                    <b-field label="ในปัจจุบันผู้ป่วยได้รับเงินช่วยเหลือจากการเจ็บป่วยหรือไม่">
+                                        <div class="block">
+                                            <b-radio size="is-medium"
+                                                     name="financialSupport"
+                                                     v-model="financialSupport" native-value="ไม่ได้">ไม่ได้</b-radio>
+                                            <b-radio size="is-medium"
+                                                     name="financialSupport"
+                                                     v-model="financialSupport" native-value="ได้">ได้</b-radio>
+                                        </div>
+                                    </b-field>
+                                    <b-field label="ระบุจำนวนคนที่ได้รับต่อเดือน" v-if="financialSupport==='ได้'">
+                                        <b-numberinput min="0" v-model="numPersonReceivingFinancialSupport"></b-numberinput>
+                                    </b-field>
+                                    <b-field label="ระบุแหล่งที่มา" v-if="financialSupport==='ได้'">
+                                        <b-input placeholder="โปรดระบุแหล่งที่มา" v-model="financialSupportSource"></b-input>
+                                    </b-field>
+                                </div>
+                            </b-message>
                         </b-message>
                         <div class="buttons is-centered">
                             <a class="button is-medium is-light"
@@ -126,6 +176,16 @@
                 companyNumber: null,
                 otherServiceProvider: null,
                 needHelpFromFamily: null,
+                stayWithFamily: null,
+                commuteCost: null,
+                financialSupport: null,
+                numPersonReceivingFinancialSupport: null,
+                financialSupportSource: null,
+                equipment: null,
+                equipmentCost: null,
+                assistantWage: null,
+                maidWage: null,
+                careGiverWage: null
             }
         }
     }
