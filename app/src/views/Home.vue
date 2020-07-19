@@ -25,6 +25,7 @@
                             :show-week-number=true
                             placeholder="Click to select..."
                             icon="calendar-today"
+                            :mobile-native="false"
                             trap-focus>
                     </b-datepicker>
                 </b-field>
