@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Profile from "../views/Profile";
 import HealthRecord from "../views/HealthRecord";
+import PatientCapital from "../views/PatientCapital";
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,11 @@ Vue.use(VueRouter)
           path: '/health-record',
           name: 'HealthRecord',
           component: HealthRecord
+      },
+      {
+          path: '/patient-capital',
+          name: 'PatientCapital',
+          component: PatientCapital,
       },
       {
           path: '/about',
