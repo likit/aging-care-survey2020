@@ -6,6 +6,7 @@ import Profile from "../views/Profile";
 import HealthRecord from "../views/HealthRecord";
 import PatientCapital from "../views/PatientCapital";
 import Overhead from "../views/Overhead";
+import EQ5D5L from "../views/EQ5D5L";
 
 Vue.use(VueRouter)
 
@@ -33,12 +34,17 @@ Vue.use(VueRouter)
       {
           path: '/patient-capital',
           name: 'PatientCapital',
-          component: PatientCapital,
+          component: PatientCapital
       },
       {
           path: '/overhead',
           name: 'Overhead',
-          component: Overhead,
+          component: Overhead
+      },
+      {
+          path: '/EQ-5D-5L',
+          name: 'EQ5D5L',
+          component: EQ5D5L
       },
       {
           path: '/about',

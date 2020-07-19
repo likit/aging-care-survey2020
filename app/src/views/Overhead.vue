@@ -84,7 +84,7 @@
                     ย้อนกลับ
                 </a>
                 <a class="button is-medium is-primary"
-                   href="">
+                   href="/EQ-5D-5L">
                     ต่อไป
                 </a>
             </div>

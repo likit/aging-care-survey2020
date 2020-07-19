@@ -1,0 +1,130 @@
+<template>
+    <section class="section">
+        <div class="container">
+            <b-message title="การเคลื่อนไหว" :closable="false" type="is-primary">
+                <div class="block">
+                        <b-radio size="is-medium" v-model="walk" native-value="1">
+                            ข้าพเจ้าไม่มีปัญหาในการเดิน
+                        </b-radio>
+                        <b-radio size="is-medium" v-model="walk" native-value="2">
+                            ข้าพเจ้ามีปัญหาในการเดินเล็กน้อย
+                        </b-radio>
+                        <b-radio size="is-medium" v-model="walk" native-value="3">
+                            ข้าพเจ้ามีปัญหาในการเดินปานกลาง
+                        </b-radio>
+                        <b-radio size="is-medium" v-model="walk" native-value="4">
+                            ข้าพเจ้ามีปัญหาในการเดินอย่างมาก
+                        </b-radio>
+                        <b-radio size="is-medium" v-model="walk" native-value="5">
+                            ข้าพเจ้าเดินไม่ได้
+                        </b-radio>
+                </div>
+            </b-message>
+            <b-message title="การดูแลตนเอง" :closable="false" type="is-primary">
+                    <b-radio size="is-medium" v-model="selfcare" native-value="1">
+                        ข้าพเจ้าไม่มีปัญหาในการอาบน้ำหรือใส่เสื้อผ้าด้วยตนเอง
+                    </b-radio>
+                    <b-radio size="is-medium" v-model="selfcare" native-value="2">
+                        ข้าพเจ้ามีปัญหาในการอาบน้ำหรือใส่เสื้อผ้าด้วยตนเองเล็กน้อย
+                    </b-radio>
+                    <b-radio size="is-medium" v-model="selfcare" native-value="3">
+                        ข้าพเจ้ามีปัญหาในการอาบน้ำหรือใส่เสื้อผ้าด้วยตนเองปานกลาง
+                    </b-radio>
+                    <b-radio size="is-medium" v-model="selfcare" native-value="4">
+                        ข้าพเจ้ามีปัญหาในการอาบน้ำหรือใส่เสื้อผ้าด้วยตนเองอย่างมาก
+                    </b-radio>
+                    <b-radio size="is-medium" v-model="selfcare" native-value="5">
+                        ข้าพเจ้าอาบน้ำหรือใส่เสื้อผ้าด้วยตนเองไม่ได้
+                    </b-radio>
+            </b-message>
+            <b-message title="กิจกรรมที่ทำประจำ (เช่นทำงาน, เรียนหนังสือ, ทำงานบ้าน, กิจกรรมในครอบครัวหรือกิจกรรมยามว่าง)" :closable="false" type="is-primary">
+                    <b-radio size="is-medium" v-model="routine" native-value="1">
+                        ข้าพเจ้าไม่มีปัญหาในการทำกิจกรรมที่ทำเป็นประจำ
+                    </b-radio>
+                    <b-radio size="is-medium" v-model="routine" native-value="2">
+                        ข้าพเจ้ามีปัญหาในการทำกิจกรรมที่ทำประจำเล็กน้อย
+                    </b-radio>
+                    <b-radio size="is-medium" v-model="routine" native-value="3">
+                        ข้าพเจ้ามีปัญหาในการทำกิจกรรมที่ทำประจำปานกลาง
+                    </b-radio>
+                    <b-radio size="is-medium" v-model="routine" native-value="4">
+                        ข้าพเจ้ามีปัญหาในการทำกิจกรรมที่ทำประจำอย่างมาก
+                    </b-radio>
+                    <b-radio size="is-medium" v-model="routine" native-value="5">
+                        ข้าพเจ้าทำกิจกรรมที่ทำประจำไม่ได้
+                    </b-radio>
+            </b-message>
+            <b-message title="อาการเจ็บปวด/อาการไม่สบายตัว" :closable="false" type="is-primary">
+                    <b-radio size="is-medium" v-model="pain" native-value="1">
+                        ข้าพเจ้าไม่มีอาการเจ็บปวดหรืออาการไม่สบายตัว
+                    </b-radio>
+                    <b-radio size="is-medium" v-model="pain" native-value="2">
+                        ข้าพเจ้ามีอาการเจ็บปวดหรืออาการไม่สบายตัวเล็กน้อย
+                    </b-radio>
+                    <b-radio size="is-medium" v-model="pain" native-value="3">
+                        ข้าพเจ้ามีอาการเจ็บปวดหรืออาการไม่สบายตัวปานกลาง
+                    </b-radio>
+                    <b-radio size="is-medium" v-model="pain" native-value="4">
+                        ข้าพเจ้ามีอาการเจ็บปวดหรืออาการไม่สบายตัวอย่างมาก
+                    </b-radio>
+                    <b-radio size="is-medium" v-model="pain" native-value="5">
+                        ข้าพเจ้ามีอาการเจ็บปวดหรืออาการไม่สบายตัวอย่างมากที่สุด
+                    </b-radio>
+            </b-message>
+            <b-message title="ความวิตกกังวล/ความซึมเศร้า" :closable="false" type="is-primary">
+                    <b-radio size="is-medium" v-model="depression" native-value="1">
+                        ข้าพเจ้าไม่รู้สึกวิตกกังวลหรือซึมเศร้า
+                    </b-radio>
+                    <b-radio size="is-medium" v-model="depression" native-value="2">
+                        ข้าพเจ้ารู้สึกวิตกกังวลหรือซึมเศร้าเล็กน้อย
+                    </b-radio>
+                    <b-radio size="is-medium" v-model="depression" native-value="3">
+                        ข้าพเจ้ารู้สึกวิตกกังวลหรือซึมเศร้าปานกลาง
+                    </b-radio>
+                    <b-radio size="is-medium" v-model="depression" native-value="4">
+                        ข้าพเจ้ารู้สึกวิตกกังวลหรือซึมเศร้าอย่างมาก
+                    </b-radio>
+                    <b-radio size="is-medium" v-model="depression" native-value="5">
+                        ข้าพเจ้ารู้สึกวิตกกังวลหรือซึมเศร้าอย่างมากที่สุด
+                    </b-radio>
+            </b-message>
+            <div class="label">
+                คะแนน {{ totalScore }}
+            </div>
+            <div class="buttons is-centered">
+                <a class="button is-medium is-light"
+                   href="/patient-capital">
+                    ย้อนกลับ
+                </a>
+                <a class="button is-medium is-primary"
+                   href="/EQ-5D-5L">
+                    ต่อไป
+                </a>
+            </div>
+        </div>
+    </section>
+</template>
+
+<script>
+    export default {
+        name: "EQ5D5L",
+        data() {
+            return {
+                walk: null,
+                selfcare: null,
+                routine: null,
+                pain: null,
+                depression: null,
+            }
+        },
+        computed: {
+            totalScore() {
+                return this.walk + ", " + this.selfcare + ", " + this.routine + ", " + this.pain + ", " + this.depression;
+            }
+        }
+    }
+</script>
+
+<style scoped>
+
+</style>
