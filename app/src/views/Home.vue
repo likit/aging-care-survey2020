@@ -18,7 +18,7 @@
             </div>
         </div>
         <div class="columns">
-            <div class="column is-3 is-offset-5 box">
+            <div class="column is-4 is-offset-4 box">
                 <b-field label="วันที่บันทึกข้อมูล">
                     <b-datepicker
                             size="is-medium"
