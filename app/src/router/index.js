@@ -5,6 +5,7 @@ import Login from '../views/Login.vue'
 import Profile from "../views/Profile";
 import HealthRecord from "../views/HealthRecord";
 import PatientCapital from "../views/PatientCapital";
+import Overhead from "../views/Overhead";
 
 Vue.use(VueRouter)
 
@@ -33,6 +34,11 @@ Vue.use(VueRouter)
           path: '/patient-capital',
           name: 'PatientCapital',
           component: PatientCapital,
+      },
+      {
+          path: '/overhead',
+          name: 'Overhead',
+          component: Overhead,
       },
       {
           path: '/about',
