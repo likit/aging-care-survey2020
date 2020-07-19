@@ -54,6 +54,84 @@
                                     </b-radio>
                                 </div>
                             </b-field>
+                            <b-field label="7. ศาสนา">
+                                <div class="block">
+                                    <b-radio name="pntReligion" v-model="pntReligion">
+                                        พุทธ
+                                    </b-radio>
+                                    <b-radio name="pntReligion" v-model="pntReligion">
+                                        คริสต์
+                                    </b-radio>
+                                    <b-radio name="pntReligion" v-model="pntReligion">
+                                        อิสลาม
+                                    </b-radio>
+                                    <b-radio name="pntReligion" native-value="อื่นๆ" v-model="pntReligion">
+                                        อื่นๆ
+                                    </b-radio>
+                                </div>
+                            </b-field>
+                            <b-field label="โปรดระบุศาสนา" v-if="pntReligion==='อื่นๆ'">
+                                <b-input v-model="pntReligionNote"></b-input>
+                            </b-field>
+                            <b-field label="8. การศึกษา">
+                                <div class="block">
+                                    <b-radio name="pntEducation" v-model="pntEducation">
+                                        ไม่ได้เรียน
+                                    </b-radio>
+                                    <b-radio name="pntEducation" v-model="pntEducation">
+                                        ไม่จบประถมศึกษา
+                                    </b-radio>
+                                    <b-radio name="pntEducation" v-model="pntEducation">
+                                        ประถมศึกษา
+                                    </b-radio>
+                                    <b-radio name="pntEducation" v-model="pntEducation">
+                                        มัธยมศึกษาตอนต้น
+                                    </b-radio>
+                                    <b-radio name="pntEducation" v-model="pntEducation">
+                                        มัธยมศึกษาตอนปลาย / ปวช.
+                                    </b-radio>
+                                    <b-radio name="pntEducation" v-model="pntEducation">
+                                        อนุปริญญา / ปวส.
+                                    </b-radio>
+                                    <b-radio name="pntEducation" v-model="pntEducation">
+                                        ปริญญาตรี
+                                    </b-radio>
+                                    <b-radio name="pntEducation" v-model="pntEducation">
+                                        สูงกว่าปริญญาตรี
+                                    </b-radio>
+                                </div>
+                            </b-field>
+                            <b-field label="9. อาชีพ (ปัจจุบัน)">
+                                <div class="block">
+                                    <b-radio name="pntJob" v-model="pntJob">
+                                        ไม่ได้ทำงาน / ทำงานบ้าน
+                                    </b-radio>
+                                    <b-radio name="pntJob" v-model="pntJob">
+                                        เกษตรกรรม
+                                    </b-radio>
+                                    <b-radio name="pntJob" v-model="pntJob">
+                                        รับจ้างแรงงาน / พนักงานบริษัท
+                                    </b-radio>
+                                    <b-radio name="pntJob" v-model="pntJob">
+                                        ค้าขาย / ธุรกิจส่วนตัว
+                                    </b-radio>
+                                    <b-radio name="pntJob" v-model="pntJob">
+                                        รับราชการ / พนักงานของรัฐ
+                                    </b-radio>
+                                    <b-radio name="pntJob" v-model="pntJob">
+                                        พนักงานรัฐวิสาหกิจ
+                                    </b-radio>
+                                    <b-radio name="pntJob" native-value="อื่นๆ" v-model="pntJob">
+                                        อื่นๆ
+                                    </b-radio>
+                                </div>
+                            </b-field>
+                            <b-field label="โปรดระบุ" v-if="pntJob==='อื่นๆ'">
+                                <b-input v-model="pntJobNote"></b-input>
+                            </b-field>
+                            <b-field label="8. รายได้จากอาชีพปัจจุบัน">
+                                <b-input v-model="pntJobWage" placeholder="บาทต่อเดือน"></b-input>
+                            </b-field>
                         </b-message>
                     </div>
                 </div>
@@ -71,7 +149,11 @@
                 pntAge: null,
                 pntAddress: '',
                 pntName: '',
-                pntMarital: null
+                pntMarital: null,
+                pntReligion: null,
+                pntReligionNote: null,
+                pntJob: null,
+                pntJobNote: null
             }
         }
     }
