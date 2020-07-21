@@ -7,6 +7,7 @@ import HealthRecord from "../views/HealthRecord";
 import PatientCapital from "../views/PatientCapital";
 import Overhead from "../views/Overhead";
 import EQ5D5L from "../views/EQ5D5L";
+import VAS from "../views/VAS";
 
 Vue.use(VueRouter)
 
@@ -45,6 +46,11 @@ Vue.use(VueRouter)
           path: '/EQ-5D-5L',
           name: 'EQ5D5L',
           component: EQ5D5L
+      },
+      {
+          path: '/VAS',
+          name: 'VAS',
+          component: VAS
       },
       {
           path: '/about',
