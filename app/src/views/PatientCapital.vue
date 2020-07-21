@@ -3,6 +3,17 @@
         <div class="columns">
             <div class="column">
                 <div class="container">
+                    <b-steps
+                            v-model="activeStep"
+                            :has-navigation="false"
+                            :mobile-mode="compact"
+                    >
+                        <b-step-item step="1" label="ประวัติสุขภาพ"></b-step-item>
+                        <b-step-item step="2" label="ข้อมูลด้านต้นทุนผู้ป่วย"></b-step-item>
+                        <b-step-item step="3" label="แบบสอบถาม EQ-5D-5L"></b-step-item>
+                        <b-step-item step="4" label="แบบประเมินคุณภาพชีวิต VAS"></b-step-item>
+                        <b-step-item step="5" label="MMSE-Thai 2002"></b-step-item>
+                    </b-steps>
                     <h1 class="title is-size-3">แบบบันทึกข้อมูลจากเวชระเบียนผู้ป่วย</h1>
                 </div>
             </div>
@@ -187,6 +198,7 @@
                 maidWage: null,
                 careGiverWage: null,
                 providedStuff: null,
+                activeStep: 1,
             }
         }
     }

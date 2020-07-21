@@ -1,6 +1,17 @@
 <template>
     <section class="section">
         <div class="container">
+            <b-steps
+                    v-model="activeStep"
+                    :has-navigation="false"
+            >
+                <b-step-item step="1" label="ประวัติสุขภาพ"></b-step-item>
+                <b-step-item step="2" label="ข้อมูลด้านต้นทุนผู้ป่วย"></b-step-item>
+                <b-step-item step="3" label="แบบสอบถาม EQ-5D-5L"></b-step-item>
+                <b-step-item step="4" label="แบบประเมินคุณภาพชีวิต VAS"></b-step-item>
+                <b-step-item step="5" label="MMSE-Thai 2002"></b-step-item>
+            </b-steps>
+            <h1 class="title">แบบสอบถาม EQ-5D-5L</h1>
             <b-message title="การเคลื่อนไหว" :closable="false" type="is-primary">
                 <div class="block">
                         <b-radio size="is-medium" v-model="walk" native-value="1">
@@ -93,11 +104,11 @@
             </div>
             <div class="buttons is-centered">
                 <a class="button is-medium is-light"
-                   href="/patient-capital">
+                   href="/overhead">
                     ย้อนกลับ
                 </a>
                 <a class="button is-medium is-primary"
-                   href="/EQ-5D-5L">
+                   href="/VAS">
                     ต่อไป
                 </a>
             </div>
@@ -115,6 +126,7 @@
                 routine: null,
                 pain: null,
                 depression: null,
+                activeStep: 2,
             }
         },
         computed: {

@@ -1,6 +1,17 @@
 <template>
     <section class="section">
         <div class="container">
+            <b-steps
+                    v-model="activeStep"
+                    :has-navigation="false"
+                    :mobile-mode="compact"
+            >
+                <b-step-item step="1" label="ประวัติสุขภาพ"></b-step-item>
+                <b-step-item step="2" label="ข้อมูลด้านต้นทุนผู้ป่วย"></b-step-item>
+                <b-step-item step="3" label="แบบสอบถาม EQ-5D-5L"></b-step-item>
+                <b-step-item step="4" label="แบบประเมินคุณภาพชีวิต VAS"></b-step-item>
+                <b-step-item step="5" label="MMSE-Thai 2002"></b-step-item>
+            </b-steps>
             <h1 class="title is-size-3">3. แบบบันทึกข้อมูลต้นทุน</h1>
             <h1 class="subtitle is-size-4">
                 3.1 การบริการดูแลกลางวันแบบไปกลับ (Day care)
@@ -110,7 +121,8 @@
                 amount: null,
                 totalCost: null,
                 depreciationPerYear: null,
-                capPerYear: null
+                capPerYear: null,
+                activeStep: 1,
             }
         }
     }
