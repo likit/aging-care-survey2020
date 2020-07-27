@@ -21,6 +21,16 @@
                     </b-slider>
                 </b-field>
             </b-message>
+            <div class="buttons is-centered">
+                <a class="button is-medium is-light"
+                   href="/EQ-5D-5L">
+                    ย้อนกลับ
+                </a>
+                <a class="button is-medium is-primary"
+                   href="/MMSE">
+                    ต่อไป
+                </a>
+            </div>
         </div>
     </section>
 </template>

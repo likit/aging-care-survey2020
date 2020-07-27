@@ -8,6 +8,7 @@ import PatientCapital from "../views/PatientCapital";
 import Overhead from "../views/Overhead";
 import EQ5D5L from "../views/EQ5D5L";
 import VAS from "../views/VAS";
+import MMSE from "../views/MMSE";
 
 Vue.use(VueRouter)
 
@@ -51,6 +52,11 @@ Vue.use(VueRouter)
           path: '/VAS',
           name: 'VAS',
           component: VAS
+      },
+      {
+          path: '/MMSE',
+          name: 'MMSE',
+          component: MMSE
       },
       {
           path: '/about',
