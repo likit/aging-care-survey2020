@@ -423,7 +423,7 @@
                             </b-field>
                         </b-message>
                         <div class="buttons is-centered">
-                            <a class="button is-medium is-light">
+                            <a class="button is-medium is-light" @click="goBack">
                                 ย้อนกลับ
                             </a>
                             <a class="button is-medium is-primary"
@@ -440,6 +440,11 @@
 
 <script>
     export default {
+        methods: {
+          goBack() {
+            this.$router.push({'name': 'Home'})
+          }
+        },
         data() {
             return {
                 pntGender: null,

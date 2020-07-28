@@ -18,7 +18,7 @@ export default new Vuex.Store({
             infoProvider: {
                 is: null,
                 relationship: null,
-                duration: null,
+                duration: 0,
             },
         }
     },
@@ -34,17 +34,20 @@ export default new Vuex.Store({
         setUser(state, data) {
             state.user.data = data;
         },
-        SET_RECORDED_DATE(state, value) {
-            state.form.recordedDate = value;
+        SET_LAST_UPDATE(state) {
+            state.form.lastUpdate = new Date()
         },
-        SET_INFO_PROVIDER(state, value) {
-            state.form.infoProvider.is = value;
+        SET_RECORDED_DATE(state, recordedDate) {
+            state.form = Object.assign({}, state.form, recordedDate)
         },
-        SET_INFO_PROVIDER_RELATIONSHIP(state, value) {
-            state.form.infoProvider.relationship = value;
+        SET_INFO_PROVIDER(state, is) {
+            state.form.infoProvider = Object.assign({}, state.form.infoProvider, is)
         },
-        SET_INFO_PROVIDER_DURATION(state, value) {
-            state.form.infoProvider.duration = value;
+        SET_INFO_PROVIDER_RELATIONSHIP(state, relationship) {
+            state.form.infoProvider = Object.assign({}, state.form.infoProvider, relationship)
+        },
+        SET_INFO_PROVIDER_DURATION(state, duration) {
+            state.form.infoProvider = Object.assign({}, state.form.infoProvider, duration)
         }
     },
     actions: {
