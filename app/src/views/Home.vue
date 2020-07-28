@@ -21,6 +21,7 @@
             <div class="column is-4 is-offset-4 box">
                 <b-field label="วันที่บันทึกข้อมูล">
                     <b-datepicker
+                            v-model="recordedDate"
                             size="is-medium"
                             :show-week-number=true
                             placeholder="Click to select..."
@@ -31,7 +32,7 @@
                 </b-field>
                 <b-field label="ผู้ให้ข้อมูล">
                     <b-select required
-                              v-model="userIs"
+                              v-model="infoProviderIs"
                               expanded
                               size="is-medium">
                         <option value="ผู้ป่วย">ผู้ป่วย</option>
@@ -39,11 +40,11 @@
                         <option value="ผู้ดูแลที่พัก">ผู้ดูแลที่พัก</option>
                     </b-select>
                 </b-field>
-                <b-field label="มีความสัมพันธ์กับผู้ป่วยโดยเป็น" v-if="userIs=='ญาติ'">
-                    <b-input v-model="userRelationship" size="is-medium"></b-input>
+                <b-field label="มีความสัมพันธ์กับผู้ป่วยโดยเป็น" v-if="infoProviderIs==='ญาติ'">
+                    <b-input v-model="infoProviderRelationship" size="is-medium"></b-input>
                 </b-field>
-                <b-field label="ระยะเวลาในการดูแลผู้ป่วย" v-if="userIs=='ผู้ดูแลที่พัก'">
-                    <b-input v-model="careDuration" size="is-medium"></b-input>
+                <b-field label="ระยะเวลาในการดูแลผู้ป่วย" v-if="infoProviderIs==='ผู้ดูแลที่พัก'">
+                    <b-input v-model="infoProviderDuration" size="is-medium"></b-input>
                 </b-field>
                 <b-field>
                     <p class="control has-text-centered">
@@ -52,6 +53,9 @@
                 </b-field>
             </div>
         </div>
+      <pre>
+        {{ this.$store.state.form }}
+      </pre>
     </div>
   </section>
 </template>
@@ -63,10 +67,45 @@ export default {
   name: 'Home',
     data() {
       return {
-          userIs: null,
-          userRelationship: null,
           careDuration: null
       }
+    },
+    computed: {
+      user() {
+        return this.$store.state.user;
+      },
+      recordedDate: {
+        get() {
+          return this.$store.state.form.recordedDate;
+        },
+        set(value) {
+          this.$store.commit('SET_RECORDED_DATE', {value})
+        }
+      },
+      infoProviderIs: {
+        get() {
+          return this.$store.state.form.infoProvider.is;
+        },
+        set(value) {
+          this.$store.commit("SET_INFO_PROVIDER", {value})
+        }
+      },
+      infoProviderRelationship: {
+        get() {
+          return this.$store.state.form.infoProvider.relationship;
+        },
+        set(value) {
+          this.$store.commit("SET_INFO_PROVIDER_RELATIONSHIP", {value})
+        }
+      },
+      infoProviderDuration: {
+        get() {
+          return this.$store.state.form.infoProvider.duration;
+        },
+        set(value) {
+          this.$store.commit("SET_INFO_PROVIDER_DURATION", {value})
+        }
+      },
     }
 }
 </script>

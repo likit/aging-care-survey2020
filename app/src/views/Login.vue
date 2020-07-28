@@ -39,7 +39,7 @@ export default {
         login: function() {
             var self = this;
             firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(
-                function() {
+                function(data) {
                     self.$buefy.dialog.alert({
                         title: 'Login Successful',
                         message: 'You have been logged in.',
@@ -51,6 +51,7 @@ export default {
                         ariaModal: true,
                         onConfirm: () => self.$router.replace('/home'),
                     })
+                  this.$store.commit('logginUser', data)
                 },
                 function(err) {
                     //TODO: display Buefy error dialog

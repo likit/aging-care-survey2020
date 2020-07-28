@@ -7,21 +7,18 @@ import 'buefy/dist/buefy.css';
 import firebaseConfig from '@/firebaseConfig.js';
 import firebase from 'firebase';
 
-Vue.use(Buefy);
+Vue.use(Buefy)
 
 Vue.config.productionTip = false
 
-firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig)
 
-let app;
-
-firebase.auth().onAuthStateChanged(()=>{
-  if(!app) {
-    app = new Vue({
-      router,
-      store,
-      render: h => h(App)
-    }).$mount('#app')
-  }
+firebase.auth().onAuthStateChanged(user => {
+  store.dispatch("fetchUser", user);
 })
 
+new Vue({
+  router,
+  store,
+  render: h => h(App)
+}).$mount('#app')

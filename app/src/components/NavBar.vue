@@ -18,15 +18,20 @@
         </template>
 
         <template slot="end">
+            <b-navbar-item>
+              <span class="icon">
+                <i class="fas fa-user"></i>
+              </span>
+            </b-navbar-item>
             <b-navbar-item tag="div">
                 <div class="buttons">
-                    <a class="button is-primary is-medium">
+                    <a class="button is-primary is-medium" v-if="userLoggedIn!==true">
                         <strong>Sign up</strong>
                     </a>
-                    <router-link class="button is-light is-medium" to="/login">
+                    <router-link class="button is-light is-medium" to="/login" v-if="userLoggedIn!==true">
                         <strong>Log in</strong>
                     </router-link>
-                    <a class="button is-danger is-medium">
+                    <a class="button is-danger is-medium" v-else>
                         <span class="icon">
                             <i class="fas fa-power-off"></i>
                         </span>
@@ -40,5 +45,13 @@
 
 <script>
 export default {
+  computed: {
+    userLoggedIn() {
+      return this.$store.state.user.loggedIn;
+    },
+    user() {
+        return this.$store.state.user;
+    }
+  }
 }
 </script>
