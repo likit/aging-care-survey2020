@@ -229,8 +229,20 @@
               ให้คุณตา/ยาย วาดภาพให้เหมือนกับในตัวอย่าง
             </p>
             <img src="../assets/visio.png">
-            <b-checkbox size="is-medium">ทำได้</b-checkbox>
+            <b-field>
+              <b-checkbox size="is-medium">ทำได้</b-checkbox>
+            </b-field>
           </b-message>
+          <div class="buttons is-centered">
+            <a class="button is-medium is-light"
+               href="/VAS-5D-5L">
+              ย้อนกลับ
+            </a>
+            <a class="button is-medium is-primary"
+               href="/">
+              บันทึกและปิดการลงข้อมูล
+            </a>
+          </div>
         </div>
     </section>
 </template>
