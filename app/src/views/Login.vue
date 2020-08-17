@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import firebase from 'firebase';
+import { auth } from '../firebase';
 export default {
     data() {
         return {
@@ -38,7 +38,7 @@ export default {
     methods: {
         login: function() {
             var self = this;
-            firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(
+            auth.signInWithEmailAndPassword(this.email, this.password).then(
                 function(data) {
                     self.$buefy.dialog.alert({
                         title: 'Login Successful',

@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import {userProfiles} from "@/firebase";
 
 Vue.use(Vuex)
 
@@ -9,6 +10,7 @@ export default new Vuex.Store({
             loggedIn: false,
             data: null,
         },
+        userProfile: {},
         form: {
             createdBy: null,
             id: null,
@@ -25,6 +27,9 @@ export default new Vuex.Store({
     getters: {
         user(state) {
             return state.user;
+        },
+        userProfile(state) {
+            return state.userProfile;
         }
     },
     mutations: {
@@ -33,6 +38,10 @@ export default new Vuex.Store({
         },
         setUser(state, data) {
             state.user.data = data;
+        },
+        setUserProfile(state, doc) {
+            state.userProfile.id = doc.id
+            state.userProfile.data = doc.data()
         },
         SET_LAST_UPDATE(state) {
             state.form.lastUpdate = new Date()
@@ -51,7 +60,7 @@ export default new Vuex.Store({
         }
     },
     actions: {
-        fetchUser({ commit }, user) {
+        fetchUser({ commit, dispatch }, user) {
             commit("logginUser", user != null);
             if (user) {
                 commit("setUser", {
@@ -60,6 +69,23 @@ export default new Vuex.Store({
             } else {
                 commit("setUser", null)
             }
+        },
+        fetchProfile({ commit }, email) {
+            userProfiles.where('email', '==', email).get().then(
+                (snapshot)=>{
+                    console.log(snapshot.docs[0])
+                    commit('setUserProfile', snapshot.docs[0])
+                }
+            ).catch((error)=> {
+                console.log(error)
+            })
+        },
+        updateUserProfile({ commit }, profile) {
+            userProfiles.doc(profile.id).update(profile.data).then(
+                ()=>{ commit('setUserProfile', profile) }
+            ).catch((error)=>{
+                console.log(error)
+            })
         }
     },
     modules: {}

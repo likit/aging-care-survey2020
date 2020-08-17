@@ -2,13 +2,14 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
-import Profile from "../views/Profile";
-import HealthRecord from "../views/HealthRecord";
-import PatientCapital from "../views/PatientCapital";
-import Overhead from "../views/Overhead";
-import EQ5D5L from "../views/EQ5D5L";
-import VAS from "../views/VAS";
-import MMSE from "../views/MMSE";
+import Profile from "../views/Profile"
+import HealthRecord from "../views/HealthRecord"
+import PatientCapital from "../views/PatientCapital"
+import Overhead from "../views/Overhead"
+import EQ5D5L from "../views/EQ5D5L"
+import VAS from "../views/VAS"
+import MMSE from "../views/MMSE"
+import store from "../store"
 
 Vue.use(VueRouter)
 
@@ -26,17 +27,26 @@ Vue.use(VueRouter)
       {
           path: '/profile',
           name: 'Profile',
-          component: Profile
+          component: Profile,
+          meta: {
+              requiresAuth: true
+          }
       },
       {
           path: '/health-record',
           name: 'HealthRecord',
-          component: HealthRecord
+          component: HealthRecord,
+          meta: {
+              requiresAuth: true
+          }
       },
       {
           path: '/patient-capital',
           name: 'PatientCapital',
-          component: PatientCapital
+          component: PatientCapital,
+          meta: {
+              requiresAuth: true
+          }
       },
       {
           path: '/overhead',
@@ -74,4 +84,14 @@ const router = new VueRouter({
   routes
 })
 
+router.beforeEach((to, from, next)=>{
+    const requiresAuth = to.matched.some(x=>x.meta.requiresAuth)
+    if(requiresAuth === true && store.state.loggedIn === false) {
+        next('/login')
+    } else {
+        next()
+    }
+})
+
 export default router
+

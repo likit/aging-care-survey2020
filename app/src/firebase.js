@@ -1,3 +1,7 @@
+import * as firebase from "firebase/app";
+import 'firebase/auth'
+import 'firebase/firestore'
+
 const firebaseConfig = {
     apiKey: "AIzaSyDEejeG9TYImYxyv8mqKaCH4KQLpekTcps",
     authDomain: "aging-care-survey2020.firebaseapp.com",
@@ -9,4 +13,15 @@ const firebaseConfig = {
     measurementId: "G-6PDBZ7RV3G"
   };
 
-  export default firebaseConfig;
+firebase.initializeApp(firebaseConfig)
+
+const db = firebase.firestore()
+const auth = firebase.auth()
+const userProfiles = db.collection('profiles')
+
+export {
+    firebase as fb,
+    db,
+    auth,
+    userProfiles
+};

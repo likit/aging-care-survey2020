@@ -31,7 +31,7 @@
                     <router-link class="button is-light is-medium" to="/login" v-if="userLoggedIn!==true">
                         <strong>Log in</strong>
                     </router-link>
-                    <a class="button is-danger is-medium" v-else>
+                    <a class="button is-danger is-medium" v-else @click="logout()">
                         <span class="icon">
                             <i class="fas fa-power-off"></i>
                         </span>
@@ -44,6 +44,9 @@
 </template>
 
 <script>
+import router from '../router/index'
+import { auth } from '../firebase'
+
 export default {
   computed: {
     userLoggedIn() {
@@ -51,6 +54,12 @@ export default {
     },
     user() {
         return this.$store.state.user;
+    }
+  },
+  methods: {
+    logout() {
+      auth.signOut();
+      router.push('/');
     }
   }
 }

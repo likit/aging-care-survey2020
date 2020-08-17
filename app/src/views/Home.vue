@@ -56,12 +56,6 @@
           </b-field>
         </div>
       </div>
-      <pre>
-        {{ this.$store.state.user }}
-      </pre>
-      <pre>
-        {{ this.$store.state.form }}
-      </pre>
     </div>
   </section>
 </template>
