@@ -40,8 +40,9 @@ export default {
             var self = this;
             auth.signInWithEmailAndPassword(self.email, self.password).then(
                 function(data) {
-                    self.$store.commit('logginUser', true)
-                    self.$store.commit('setUser', data)
+                    console.log(data)
+                    self.$store.commit('SET_LOGIN_TRUE')
+                    self.$store.commit('SET_CURRENT_USER', self.email)
                     self.$store.dispatch('fetchProfile', self.email)
                     self.$buefy.dialog.alert({
                         title: 'Login Successful',
@@ -52,7 +53,7 @@ export default {
                         iconPack: 'fa',
                         ariaRole: 'alertdialog',
                         ariaModal: true,
-                        onConfirm: () => self.$router.replace('/home'),
+                        onConfirm: () => self.$router.push({name: 'Landing'}),
                     })
                 }).catch((err)=> {
                         //TODO: display Buefy error dialog

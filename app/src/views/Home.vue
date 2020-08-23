@@ -50,8 +50,15 @@
             <b-numberinput min="0" size="is-medium" v-model="infoProviderDuration"></b-numberinput>
           </b-field>
           <b-field>
-            <p class="control has-text-centered">
-              <a class="button is-medium is-primary" @click="saveAndNext">ต่อไป</a>
+            <p class="buttons is-centered">
+              <a class="button is-medium is-light" @click="back">
+                <b-icon pack="fas" icon="chevron-left"></b-icon>
+                <span>Back</span>
+              </a>
+              <a class="button is-medium is-primary" @click="saveAndNext">
+                <span>ต่อไป</span>
+                <b-icon pack="fas" icon="chevron-right"></b-icon>
+              </a>
             </p>
           </b-field>
         </div>
@@ -106,6 +113,9 @@ export default {
     saveAndNext() {
       this.$store.commit('SET_LAST_UPDATE')
       this.$router.push({'name': 'HealthRecord'})
+    },
+    back() {
+      this.$router.back()
     }
   }
 }
