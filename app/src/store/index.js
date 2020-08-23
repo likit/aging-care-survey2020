@@ -8,7 +8,7 @@ export default new Vuex.Store({
     state: {
         user: {
             loggedIn: false,
-            data: null,
+            email: null,
         },
         userProfile: {
             id: null,
@@ -28,17 +28,27 @@ export default new Vuex.Store({
         }
     },
     getters: {
+        isUserLoggedIn: (state) => {
+            return state.user.loggedIn;
+        }
     },
     mutations: {
-        logginUser(state, value) {
-            state.user.loggedIn = value;
+        SET_LOGIN_TRUE(state) {
+            state.user.loggedIn = true;
         },
-        setUser(state, data) {
-            state.user.data = data;
+        SET_LOGIN_FALSE(state) {
+            state.user.loggedIn = false;
         },
-        setUserProfile(state, doc) {
+        SET_CURRENT_USER(state, data) {
+            state.user.email = data;
+        },
+        SET_USER_PROFILE_DATA(state, doc) {
             state.userProfile.id = doc.id
             state.userProfile.data = doc.data()
+        },
+        CLEAR_USER_PROFILE(state) {
+            state.userProfile.id = null
+            state.userProfile.data = {}
         },
         SET_LAST_UPDATE(state) {
             state.form.lastUpdate = new Date()
@@ -58,23 +68,20 @@ export default new Vuex.Store({
     },
     actions: {
         fetchUser({ commit }, user) {
-            commit("logginUser", user != null);
             if (user) {
-                commit("setUser", {
-                    email: user.email
-                })
-            } else {
-                commit("setUser", null)
+                commit("SET_CURRENT_USER", user.email)
+                commit("SET_LOGIN_TRUE")
             }
         },
         fetchProfile({ commit }, email) {
+            let self = this;
             userProfiles.where('email', '==', email).get().then(
                 (snapshot)=>{
                     console.log(snapshot.docs[0])
-                    commit('setUserProfile', snapshot.docs[0])
+                    commit('SET_USER_PROFILE_DATA', snapshot.docs[0])
                 }
             ).catch(()=> {
-                this.$buefy.dialog.alert({
+                self.$buefy.dialog.alert({
                     title: 'โปรแกรมมีปัญหาในการโหลดข้อมูล',
                     message: 'โปรแกรมไม่สามารถดาวน์โหลดข้อมูลทางอินเตอร์เน็ตได้ กรุณาตรวจสอบการเชื่อมต่อของท่านก่อนลองใช้งานอีกครั้ง',
                     type: 'is-danger',
@@ -88,10 +95,15 @@ export default new Vuex.Store({
         },
         updateUserProfile({ commit }, profile) {
             userProfiles.doc(profile.id).update(profile.data).then(
-                ()=>{ commit('setUserProfile', profile) }
+                ()=>{ commit('SET_USER_PROFILE_DATA', profile) }
             ).catch((error)=>{
                 console.log(error)
             })
+        },
+        logoutUser({ commit }) {
+            commit('CLEAR_USER_PROFILE')
+            commit('SET_CURRENT_USER', null)
+            commit('SET_LOGIN_FALSE')
         }
     },
     modules: {}
