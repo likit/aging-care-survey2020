@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Landing from "@/views/Landing"
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Profile from "../views/Profile"
@@ -15,9 +16,17 @@ Vue.use(VueRouter)
 
   const routes = [
       {
+          path: '/',
+          name: 'Landing',
+          component: Landing,
+      },
+      {
           path: '/home',
           name: 'Home',
-          component: Home
+          component: Home,
+          meta: {
+              requiresAuth: true
+          }
       },
       {
           path: '/login',
@@ -86,11 +95,12 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next)=>{
     const requiresAuth = to.matched.some(x=>x.meta.requiresAuth)
-    if(requiresAuth === true && store.state.loggedIn === false) {
-        next('/login')
-    } else {
-        next()
+    if(requiresAuth === true) {
+        if (store.getters.isUserLoggedIn === false) {
+            next('/login')
+        }
     }
+    next()
 })
 
 export default router
