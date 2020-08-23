@@ -9,16 +9,16 @@
             </b-navbar-item>
         </template>
         <template slot="start">
-            <b-navbar-item href="/home">
+            <b-navbar-item tag="router-link" :to="{path: '/'}">
                 Home
             </b-navbar-item>
-            <b-navbar-item href="/profile">
+            <b-navbar-item tag="router-link" :to="{path: '/profile'}">
                 Profile
             </b-navbar-item>
         </template>
 
         <template slot="end">
-            <b-navbar-item>
+            <b-navbar-item v-if="userLoggedIn">
               <button class="button is-info is-outlined is-medium">
                 <span class="icon">
                   <i class="fas fa-user"></i>
@@ -56,14 +56,17 @@ import { mapState } from 'vuex'
 export default {
   computed: {
     userLoggedIn() {
-      return this.$store.state.user.loggedIn;
+      return this.$store.getters.isUserLoggedIn;
     },
     ...mapState(['userProfile'])
   },
   methods: {
     logout() {
-      auth.signOut();
-      router.push('/');
+      let self = this;
+      auth.signOut().then(()=>{
+        self.$store.dispatch('logoutUser')
+      })
+      router.push('/login');
     }
   }
 }
