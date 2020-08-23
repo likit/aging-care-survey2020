@@ -38,8 +38,11 @@ export default {
     methods: {
         login: function() {
             var self = this;
-            auth.signInWithEmailAndPassword(this.email, this.password).then(
+            auth.signInWithEmailAndPassword(self.email, self.password).then(
                 function(data) {
+                    self.$store.commit('logginUser', true)
+                    self.$store.commit('setUser', data)
+                    self.$store.dispatch('fetchProfile', self.email)
                     self.$buefy.dialog.alert({
                         title: 'Login Successful',
                         message: 'You have been logged in.',
@@ -51,14 +54,21 @@ export default {
                         ariaModal: true,
                         onConfirm: () => self.$router.replace('/home'),
                     })
-                  this.$store.commit('logginUser', data)
-                },
-                function(err) {
-                    //TODO: display Buefy error dialog
-                    //TODO: add a button for getting a password via or contact the admin
-                    alert('Error occurred. ' + err.message);
-                }
-            )
+                }).catch((err)=> {
+                        //TODO: display Buefy error dialog
+                        //TODO: add a button for getting a password via or contact the admin
+                        alert('Error occurred. ' + err.message);
+                        self.$buefy.dialog.alert({
+                          title: 'Error!',
+                          message: 'โปรแกรมไม่สามารถโหลดข้อมูลผู้ใช้งานได้ โปรดตรวจสอบการเชื่อมต่อเครือข่ายอินเตอร์เน็ตและลองอีกครั้ง',
+                          type: 'is-danger',
+                          hasIcon: true,
+                          icon: 'times-circle',
+                          iconPack: 'fa',
+                          ariaRole: 'alertdialog',
+                          ariaModal: true
+                        })
+            })
         }
     }
 }

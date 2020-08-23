@@ -10,7 +10,10 @@ export default new Vuex.Store({
             loggedIn: false,
             data: null,
         },
-        userProfile: {},
+        userProfile: {
+            id: null,
+            data: {}
+        },
         form: {
             createdBy: null,
             id: null,
@@ -25,12 +28,6 @@ export default new Vuex.Store({
         }
     },
     getters: {
-        user(state) {
-            return state.user;
-        },
-        userProfile(state) {
-            return state.userProfile;
-        }
     },
     mutations: {
         logginUser(state, value) {
@@ -60,7 +57,7 @@ export default new Vuex.Store({
         }
     },
     actions: {
-        fetchUser({ commit, dispatch }, user) {
+        fetchUser({ commit }, user) {
             commit("logginUser", user != null);
             if (user) {
                 commit("setUser", {
@@ -76,8 +73,17 @@ export default new Vuex.Store({
                     console.log(snapshot.docs[0])
                     commit('setUserProfile', snapshot.docs[0])
                 }
-            ).catch((error)=> {
-                console.log(error)
+            ).catch(()=> {
+                this.$buefy.dialog.alert({
+                    title: 'โปรแกรมมีปัญหาในการโหลดข้อมูล',
+                    message: 'โปรแกรมไม่สามารถดาวน์โหลดข้อมูลทางอินเตอร์เน็ตได้ กรุณาตรวจสอบการเชื่อมต่อของท่านก่อนลองใช้งานอีกครั้ง',
+                    type: 'is-danger',
+                    hasIcon: true,
+                    icon: 'times-circle',
+                    iconPack: 'fa',
+                    ariaRole: 'alertdialog',
+                    ariaModal: true
+                })
             })
         },
         updateUserProfile({ commit }, profile) {

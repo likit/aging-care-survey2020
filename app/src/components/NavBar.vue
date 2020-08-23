@@ -19,9 +19,14 @@
 
         <template slot="end">
             <b-navbar-item>
-              <span class="icon">
-                <i class="fas fa-user"></i>
-              </span>
+              <button class="button is-info is-outlined is-medium">
+                <span class="icon">
+                  <i class="fas fa-user"></i>
+                </span>
+                  <span>
+                  {{ userProfile.data.fullname }}
+                </span>
+              </button>
             </b-navbar-item>
             <b-navbar-item tag="div">
                 <div class="buttons">
@@ -46,15 +51,14 @@
 <script>
 import router from '../router/index'
 import { auth } from '../firebase'
+import { mapState } from 'vuex'
 
 export default {
   computed: {
     userLoggedIn() {
       return this.$store.state.user.loggedIn;
     },
-    user() {
-        return this.$store.state.user;
-    }
+    ...mapState(['userProfile'])
   },
   methods: {
     logout() {
