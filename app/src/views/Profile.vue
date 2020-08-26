@@ -7,7 +7,7 @@
         </div>
       </div>
       <div class="columns">
-        <div class="column is-4 is-offset-4">
+        <div class="column is-6 is-offset-3">
           <div class="box">
             <b-field label="ชื่อ">
               <b-input placeholder="ชื่อ นามสกุล" v-model="userProfile.data.fullname"></b-input>

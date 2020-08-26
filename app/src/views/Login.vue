@@ -55,10 +55,9 @@ export default {
                         ariaModal: true,
                         onConfirm: () => self.$router.push({name: 'Landing'}),
                     })
-                }).catch((err)=> {
+                }).catch(()=> {
                         //TODO: display Buefy error dialog
                         //TODO: add a button for getting a password via or contact the admin
-                        alert('Error occurred. ' + err.message);
                         self.$buefy.dialog.alert({
                           title: 'Error!',
                           message: 'โปรแกรมไม่สามารถโหลดข้อมูลผู้ใช้งานได้ โปรดตรวจสอบการเชื่อมต่อเครือข่ายอินเตอร์เน็ตและลองอีกครั้ง',

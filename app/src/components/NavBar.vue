@@ -15,6 +15,9 @@
             <b-navbar-item tag="router-link" :to="{path: '/profile'}">
                 Profile
             </b-navbar-item>
+            <b-navbar-item tag="router-link" :to="{path: '/records'}">
+                My Records
+            </b-navbar-item>
         </template>
 
         <template slot="end">

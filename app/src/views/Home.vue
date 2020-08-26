@@ -53,7 +53,11 @@
             <p class="buttons is-centered">
               <a class="button is-medium is-light" @click="back">
                 <b-icon pack="fas" icon="chevron-left"></b-icon>
-                <span>Back</span>
+                <span>กลับ</span>
+              </a>
+              <a class="button is-medium is-success" @click="save">
+                <b-icon pack="far" icon="save"></b-icon>
+                <span>บันทึก</span>
               </a>
               <a class="button is-medium is-primary" @click="saveAndNext">
                 <span>ต่อไป</span>
@@ -115,7 +119,33 @@ export default {
       this.$router.push({'name': 'HealthRecord'})
     },
     back() {
-      this.$router.back()
+      this.$router.push({name: 'Landing'})
+    },
+    save() {
+      let self = this
+      this.$store.dispatch('saveForm').then(()=>{
+        self.$buefy.dialog.alert({
+          title: 'Login Successful',
+          message: 'บันทึกข้อมูลเรียบร้อยแล้ว',
+          type: 'is-success',
+          hasIcon: true,
+          icon: 'check-circle',
+          iconPack: 'fa',
+          ariaRole: 'alertdialog',
+          ariaModal: true,
+        })
+      }).catch(()=>{
+        self.$buefy.dialog.alert({
+          title: 'Error!',
+          message: 'โปรแกรมไม่สามารถบันทึกข้อมูลได้ โปรดลองใหม่อีกครั้ง',
+          type: 'is-danger',
+          hasIcon: true,
+          icon: 'times-circle',
+          iconPack: 'fa',
+          ariaRole: 'alertdialog',
+          ariaModal: true
+        })
+      })
     }
   }
 }

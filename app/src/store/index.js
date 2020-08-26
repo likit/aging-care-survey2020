@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import {userProfiles} from "@/firebase";
+import {userProfiles, forms} from "@/firebase";
 
 Vue.use(Vuex)
 
@@ -15,8 +15,8 @@ export default new Vuex.Store({
             data: {}
         },
         form: {
-            createdBy: null,
             id: null,
+            createdBy: null,
             createdDate: null,
             lastUpdate: null,
             recordedDate: null,
@@ -25,6 +25,56 @@ export default new Vuex.Store({
                 relationship: null,
                 duration: 0,
             },
+            patientRecord: {
+                pntGender: null,
+                pntPIN: null,
+                pntAge: null,
+                pntAddress: '',
+                pntName: '',
+                pntMarital: null,
+                pntReligion: null,
+                pntReligionNote: null,
+                pntJob: null,
+                pntJobNote: null,
+                pntJobWage: null,
+                pntEducation: null,
+                pntHealthCoverage: null,
+                pntHealthCoverageNote: null,
+                pntHospitalTransferFrom: null,
+                pntHospitalTransferFromNote: null,
+                pntDiagnosis: null,
+                pntComorbidity: null,
+                pntComorbidityNote: null,
+                pntComplication: null,
+                pntComplicationNote: null,
+                pntUnderlyingDisease: null,
+                pntUnderlyingDiseaseNote: null,
+                pntAdmittedDate: null,
+                pntDischargedDate: null,
+                pntDischargeReason: null,
+                pntDischargeReasonNote: null,
+                pntHospitalTransferTo: null,
+                pntHospitalTransferToNote: null,
+                pntDiagnosisDurationYear: 0,
+                pntDiagnosisDurationMonth: 0,
+                pntDiagnosisDurationDay: 0,
+                pntTreatmentNoPharm: null,
+                pntTreatmentPharm: null,
+                pntTreatmentCognition: null,
+                pntTreatmentEmotion: null,
+                pntTreatmentStimulation: null,
+                pntTreatmentBahavior: null,
+                pntTreatmentCaregiver: null,
+                pntTreamentDonepezil: null,
+                pntTreamentRivastigmine: null,
+                pntTreamentGalantime: null,
+                pntTreamentMemantine: null,
+                pntTreatmentOthers: null,
+                pntTreatmentOthersNote: null,
+                pntTreatmentDurationYear: 0,
+                pntTreatmentDurationMonth: 0,
+                pntTreatmentDurationDay: 0,
+            }
         }
     },
     getters: {
@@ -50,11 +100,33 @@ export default new Vuex.Store({
             state.userProfile.id = null
             state.userProfile.data = {}
         },
+        SET_CURRENT_FORM(state, formData) {
+            state.form = formData
+        },
+        SET_FORM_ID(state, id) {
+            state.form.id = id
+        },
+        SET_FORM_CREATOR(state) {
+            state.form.createdBy = state.user.email
+        },
+        SET_FORM_CREATED_DATE(state, created_at) {
+            state.form.createdDate = created_at
+        },
+        SET_FORM_LAST_UPDATE(state, updated_at) {
+            state.form.lastUpdate = updated_at
+        },
+        SET_ADMITTED_DATE(state, admittedDate) {
+            state.form.patientRecord.pntAdmittedDate = admittedDate
+        },
+        SET_DISCHARGED_DATE(state, dischangedDate) {
+            state.form.patientRecord.pntDischargedDate = dischangedDate
+        },
         SET_LAST_UPDATE(state) {
             state.form.lastUpdate = new Date()
         },
         SET_RECORDED_DATE(state, recordedDate) {
-            state.form = Object.assign({}, state.form, recordedDate)
+            // state.form.recordedDate = Object.assign({}, state.form.recordedDate, recordedDate)
+            state.form.recordedDate = recordedDate
         },
         SET_INFO_PROVIDER(state, is) {
             state.form.infoProvider = Object.assign({}, state.form.infoProvider, is)
@@ -99,6 +171,37 @@ export default new Vuex.Store({
             ).catch((error)=>{
                 console.log(error)
             })
+        },
+        updateFormCreator({ commit }) {
+            commit('SET_FORM_CREATOR')
+        },
+        loadForm({ commit }, formId) {
+            forms.doc(formId).get().then((doc)=>{
+                if (doc.exists) {
+                    commit('SET_CURRENT_FORM', doc.data())
+                    commit('SET_FORM_ID', doc.id)
+                    commit('SET_FORM_CREATED_DATE', new Date(doc.data().createdDate.toDate()))
+                    commit('SET_FORM_LAST_UPDATE', new Date(doc.data().lastUpdate.toDate()))
+                    commit('SET_RECORDED_DATE', new Date(doc.data().recordedDate.toDate()))
+                    commit('SET_ADMITTED_DATE',
+                        new Date(doc.data().patientRecord.pntAdmittedDate.toDate()))
+                    commit('SET_DISCHARGED_DATE',
+                        new Date(doc.data().patientRecord.pntDischargedDate.toDate()))
+                }
+            })
+        },
+        saveForm({ commit, state }) {
+            commit('SET_FORM_CREATOR')
+            if (state.form.id !== null) {
+                commit('SET_FORM_LAST_UPDATE', new Date())
+                forms.doc(state.form.id).set(state.form)
+            } else {
+                commit('SET_FORM_CREATED_DATE', new Date())
+                commit('SET_FORM_LAST_UPDATE', new Date())
+                forms.add(state.form).then((docRef)=>{
+                    commit('SET_FORM_ID', docRef.id)
+                })
+            }
         },
         logoutUser({ commit }) {
             commit('CLEAR_USER_PROFILE')

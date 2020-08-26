@@ -6,6 +6,7 @@ import Login from '../views/Login.vue'
 import Profile from "../views/Profile"
 import HealthRecord from "../views/HealthRecord"
 import PatientCapital from "../views/PatientCapital"
+import Record from "../views/Record";
 import Overhead from "../views/Overhead"
 import EQ5D5L from "../views/EQ5D5L"
 import VAS from "../views/VAS"
@@ -37,6 +38,14 @@ Vue.use(VueRouter)
           path: '/profile',
           name: 'Profile',
           component: Profile,
+          meta: {
+              requiresAuth: true
+          }
+      },
+      {
+          path: '/records',
+          name: 'Records',
+          component: Record,
           meta: {
               requiresAuth: true
           }
