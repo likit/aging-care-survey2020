@@ -280,6 +280,7 @@
         save() {
           let self = this
           this.$store.dispatch('saveForm').then(()=>{
+            this.$store.commit('SET_LAST_UPDATE')
             self.$buefy.dialog.alert({
               title: 'Login Successful',
               message: 'บันทึกข้อมูลเรียบร้อยแล้ว',

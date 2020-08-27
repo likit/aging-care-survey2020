@@ -30,7 +30,9 @@
                         <h3 class="title is-size-5 has-text-grey">ส่วนที่ 1 ข้อมูลทั่วไป</h3>
                         <b-message title="ส่วนที่ 1 ข้อมูลทั่วไป" type="is-primary" :closable=false>
                             <b-field label="1. เลขที่บัตรประชาชน">
-                                <b-input v-model="form.patientRecord.pntPIN" placeholder="เลขที่บัตรประชาชน 13 หลัก"></b-input>
+                                <b-input v-model="form.patientRecord.pntPIN"
+                                         type="number"
+                                         placeholder="เลขที่บัตรประชาชน 13 หลัก"></b-input>
                             </b-field>
                             <b-field label="2. ชื่อ นามสกุล">
                                 <b-input v-model="form.patientRecord.pntName"></b-input>
@@ -40,16 +42,18 @@
                             </b-field>
                             <b-field label="4. เพศ">
                                 <div class="block">
-                                    <b-radio name="pntGender" v-model="form.patientRecord.pntGender">
+                                    <b-radio name="pntGender" native-value="ชาย"
+                                             v-model="form.patientRecord.pntGender">
                                         ชาย
                                     </b-radio>
-                                    <b-radio name="pntGender" v-model="form.patientRecord.pntGender">
+                                    <b-radio name="pntGender" native-value="หญิง"
+                                             v-model="form.patientRecord.pntGender">
                                         หญิง
                                     </b-radio>
                                 </div>
                             </b-field>
                             <b-field label="5. อายุ (ปี)">
-                                <b-input v-model="form.patientRecord.pntAge"></b-input>
+                                <b-input type="number" v-model="form.patientRecord.pntAge"></b-input>
                             </b-field>
                             <b-field label="6. สถานภาพสมรส">
                                 <div class="block">
@@ -146,7 +150,7 @@
                                 <b-input v-model="form.patientRecord.pntJobNote"></b-input>
                             </b-field>
                             <b-field label="10. รายได้จากอาชีพปัจจุบัน">
-                                <b-input v-model="form.patientRecord.pntJobWage" placeholder="บาทต่อเดือน"></b-input>
+                                <b-input type="number" v-model="form.patientRecord.pntJobWage" placeholder="บาทต่อเดือน"></b-input>
                             </b-field>
                             <b-field label="11. สิทธิการรักษาพยาบาล">
                                 <div class="block">
@@ -380,16 +384,16 @@
                             </b-field>
                             <b-field label="กรณีรักษาโดยใช้ยา" v-if="form.patientRecord.pntTreatmentPharm">
                                 <div class="block">
-                                    <b-checkbox size="is-medium" v-model="form.patientRecord.pntTreatmentDonepezil">
+                                    <b-checkbox size="is-medium" v-model="form.patientRecord.pntTreamentDonepezil">
                                         Donepezil
                                     </b-checkbox>
-                                    <b-checkbox size="is-medium" v-model="form.patientRecord.pntTreatmentRivastigmine">
-                                        Revastigmine
+                                    <b-checkbox size="is-medium" v-model="form.patientRecord.pntTreamentRivastigmine">
+                                        Rivastigmine
                                     </b-checkbox>
-                                    <b-checkbox size="is-medium" v-model="form.patientRecord.pntTreatmentGalantamine">
+                                    <b-checkbox size="is-medium" v-model="form.patientRecord.pntTreamentGalantamine">
                                         Galantamine
                                     </b-checkbox>
-                                    <b-checkbox size="is-medium" v-model="form.patientRecord.pntTreatmentMemantine">
+                                    <b-checkbox size="is-medium" v-model="form.patientRecord.pntTreamentMemantine">
                                         Memantine
                                     </b-checkbox>
                                     <b-checkbox size="is-medium" v-model="form.patientRecord.pntTreatmentOthers">
@@ -461,6 +465,7 @@
           save() {
             let self = this
             this.$store.dispatch('saveForm').then(()=>{
+              this.$store.commit('SET_LAST_UPDATE')
               self.$buefy.dialog.alert({
                 title: 'Login Successful',
                 message: 'บันทึกข้อมูลเรียบร้อยแล้ว',

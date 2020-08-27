@@ -67,7 +67,7 @@ export default new Vuex.Store({
                 pntTreatmentCaregiver: null,
                 pntTreamentDonepezil: null,
                 pntTreamentRivastigmine: null,
-                pntTreamentGalantime: null,
+                pntTreamentGalantamine: null,
                 pntTreamentMemantine: null,
                 pntTreatmentOthers: null,
                 pntTreatmentOthersNote: null,
@@ -103,6 +103,13 @@ export default new Vuex.Store({
                 ],
                 otherServiceProvider: null,
                 needHelpFromFamily: null,
+                familyHelper: {
+                    gender: null,
+                    frequency: null,
+                    timePerHelp: null,
+                    duration: null,
+                    age: null
+                },
                 stayWithFamily: null,
                 commuteCost: null,
                 financialSupport: null,
@@ -430,15 +437,6 @@ export default new Vuex.Store({
         SET_RECORDED_DATE(state, recordedDate) {
             // state.form.recordedDate = Object.assign({}, state.form.recordedDate, recordedDate)
             state.form.recordedDate = recordedDate
-        },
-        SET_INFO_PROVIDER(state, is) {
-            state.form.infoProvider = Object.assign({}, state.form.infoProvider, is)
-        },
-        SET_INFO_PROVIDER_RELATIONSHIP(state, relationship) {
-            state.form.infoProvider = Object.assign({}, state.form.infoProvider, relationship)
-        },
-        SET_INFO_PROVIDER_DURATION(state, duration) {
-            state.form.infoProvider = Object.assign({}, state.form.infoProvider, duration)
         }
     },
     actions: {
@@ -486,10 +484,10 @@ export default new Vuex.Store({
                     commit('SET_FORM_CREATED_DATE', new Date(doc.data().createdDate.toDate()))
                     commit('SET_FORM_LAST_UPDATE', new Date(doc.data().lastUpdate.toDate()))
                     commit('SET_RECORDED_DATE', new Date(doc.data().recordedDate.toDate()))
-                    commit('SET_ADMITTED_DATE',
-                        new Date(doc.data().patientRecord.pntAdmittedDate.toDate()))
-                    commit('SET_DISCHARGED_DATE',
-                        new Date(doc.data().patientRecord.pntDischargedDate.toDate()))
+                    if (doc.data().patientRecord.pntAdmittedDate !== null)
+                        commit('SET_ADMITTED_DATE', new Date(doc.data().patientRecord.pntAdmittedDate.toDate()))
+                    if (doc.data().patientRecord.pntDischargedDate)
+                        commit('SET_DISCHARGED_DATE', new Date(doc.data().patientRecord.pntDischargedDate.toDate()))
                 }
             })
         },

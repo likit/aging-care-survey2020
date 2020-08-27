@@ -7,7 +7,7 @@
             <b-numberinput min="0" v-model="times"></b-numberinput>
         </b-field>
         <b-field label="จำนวนเงินโดยเฉลี่ยที่ใช้จ่ายต่อครั้ง">
-            <b-input v-model="totalCost" step="any" placeholder="จำนวนบาท"></b-input>
+            <b-input type="number" v-model="totalCost" step="any" placeholder="จำนวนบาท"></b-input>
         </b-field>
     </b-message>
 </template>

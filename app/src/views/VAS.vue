@@ -23,14 +23,19 @@
             </b-message>
             <div class="buttons is-centered">
                 <router-link class="button is-medium is-light" :to="{name: 'EQ5D5L'}">
+                  <b-icon pack="fas" icon="chevron-left"></b-icon>
+                  <span>
                     ย้อนกลับ
+                  </span>
                 </router-link>
               <a class="button is-medium is-success" @click="save">
                 <b-icon pack="far" icon="save"></b-icon>
                 <span>บันทึก</span>
               </a>
               <router-link class="button is-medium is-primary" :to="{name: 'MMSE'}">
+                <span>
                     ต่อไป
+                </span>
                 </router-link>
             </div>
         </div>
@@ -53,6 +58,7 @@
         save() {
           let self = this
           this.$store.dispatch('saveForm').then(()=>{
+            this.$store.commit('SET_LAST_UPDATE')
             self.$buefy.dialog.alert({
               title: 'Login Successful',
               message: 'บันทึกข้อมูลเรียบร้อยแล้ว',

@@ -20,6 +20,7 @@
           </b-message>
         </div>
       </div>
+      <pre>{{form.infoProvider}}</pre>
       <div class="columns">
         <div class="column is-6 is-offset-3 box">
           <b-field label="วันที่บันทึกข้อมูล">
@@ -37,17 +38,17 @@
             <b-select expanded
                       required
                       size="is-medium"
-                      v-model="infoProviderIs">
+                      v-model="form.infoProvider.is">
               <option value="ผู้ป่วย">ผู้ป่วย</option>
               <option value="ญาติ">ญาติ</option>
               <option value="ผู้ดูแลที่พัก">ผู้ดูแลที่พัก</option>
             </b-select>
           </b-field>
-          <b-field label="มีความสัมพันธ์กับผู้ป่วยโดยเป็น" v-if="infoProviderIs==='ญาติ'">
-            <b-input size="is-medium" v-model="infoProviderRelationship"></b-input>
+          <b-field label="มีความสัมพันธ์กับผู้ป่วยโดยเป็น" v-if="form.infoProvider.is==='ญาติ'">
+            <b-input size="is-medium" v-model="form.infoProvider.relationship"></b-input>
           </b-field>
-          <b-field label="ระยะเวลาในการดูแลผู้ป่วย" v-if="infoProviderIs==='ผู้ดูแลที่พัก'">
-            <b-numberinput min="0" size="is-medium" v-model="infoProviderDuration"></b-numberinput>
+          <b-field label="ระยะเวลาในการดูแลผู้ป่วย" v-if="form.infoProvider.is==='ผู้ดูแลที่พัก'">
+            <b-numberinput min="0" size="is-medium" v-model="form.infoProvider.duration"></b-numberinput>
           </b-field>
           <b-field>
             <p class="buttons is-centered">
@@ -59,7 +60,7 @@
                 <b-icon pack="far" icon="save"></b-icon>
                 <span>บันทึก</span>
               </a>
-              <a class="button is-medium is-primary" @click="saveAndNext">
+              <a class="button is-medium is-primary" @click="goNext">
                 <span>ต่อไป</span>
                 <b-icon pack="fas" icon="chevron-right"></b-icon>
               </a>
@@ -73,6 +74,7 @@
 
 <script>
 // @ is an alias to /src
+import {mapState} from 'vuex'
 
 export default {
   name: 'Home',
@@ -88,34 +90,10 @@ export default {
         this.$store.commit('SET_RECORDED_DATE', recordedDate)
       }
     },
-    infoProviderIs: {
-      get() {
-        return this.$store.state.form.infoProvider.is;
-      },
-      set(is) {
-        this.$store.commit("SET_INFO_PROVIDER", {is})
-      }
-    },
-    infoProviderRelationship: {
-      get() {
-        return this.$store.state.form.infoProvider.relationship;
-      },
-      set(relationship) {
-        this.$store.commit("SET_INFO_PROVIDER_RELATIONSHIP", {relationship})
-      }
-    },
-    infoProviderDuration: {
-      get() {
-        return this.$store.state.form.infoProvider.duration;
-      },
-      set(duration) {
-        this.$store.commit("SET_INFO_PROVIDER_DURATION", {duration})
-      }
-    },
+    ...mapState(['form'])
   },
   methods: {
-    saveAndNext() {
-      this.$store.commit('SET_LAST_UPDATE')
+    goNext() {
       this.$router.push({'name': 'HealthRecord'})
     },
     back() {
@@ -124,6 +102,7 @@ export default {
     save() {
       let self = this
       this.$store.dispatch('saveForm').then(()=>{
+        this.$store.commit('SET_LAST_UPDATE')
         self.$buefy.dialog.alert({
           title: 'Login Successful',
           message: 'บันทึกข้อมูลเรียบร้อยแล้ว',

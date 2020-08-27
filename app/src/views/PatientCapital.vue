@@ -36,11 +36,11 @@
                                   <b-field label="วัน">
                                       <b-numberinput min="0" v-model="form.patientCapital.dayCareDurationDay"></b-numberinput>
                                   </b-field>
-                                  <b-field label="นาที">
+                                <b-field label="ชั่วโมง">
+                                  <b-numberinput max="23" min="0" v-model="form.patientCapital.dayCareDurationHour"></b-numberinput>
+                                </b-field>
+                                <b-field label="นาที">
                                       <b-numberinput max="59" min="0" v-model="form.patientCapital.dayCareDurationMinute"></b-numberinput>
-                                  </b-field>
-                                  <b-field label="ชั่วโมง">
-                                      <b-numberinput max="23" min="0" v-model="form.patientCapital.dayCareDurationHour"></b-numberinput>
                                   </b-field>
                               </div>
                           </b-field>
@@ -105,14 +105,14 @@
                           </b-field>
                           <b-field label="26. ในช่วงระยะเวลา 1 ปีที่ผ่านมา (เมษายน 2561-เมษายน 2562) ผู้ป่วยต้องอาศัยญาติในการทำกิจกรรมหลักหรือไม่">
                               <div class="block">
-                                  <b-radio v-model="form.patientCapital.needHelpFromFamily" size="is-medium" name="needHelpFromFamily" native-value="ไม่มี">ไม่ใช่</b-radio>
-                                  <b-radio v-model="form.patientCapital.needHelpFromFamily" size="is-medium" name="needHelpFromFamily" native-value="มี">ใช่</b-radio>
+                                  <b-radio v-model="form.patientCapital.needHelpFromFamily" size="is-medium" name="needHelpFromFamily" native-value="ไม่ใช่">ไม่ใช่</b-radio>
+                                  <b-radio v-model="form.patientCapital.needHelpFromFamily" size="is-medium" name="needHelpFromFamily" native-value="ใช่">ใช่</b-radio>
                               </div>
                           </b-field>
-                          <b-field>
-                              <FamilyHelper></FamilyHelper>
+                          <b-field v-if="form.patientCapital.needHelpFromFamily==='ใช่'">
+                              <FamilyHelper :family="form.patientCapital.familyHelper" @mutate="mutateFamily"></FamilyHelper>
                           </b-field>
-                          <b-field label="26. ญาติ/ผู้ดูแลหลักของผู้ป่วย พักอยู่บ้านเดียวกับผู้ป่วยหรือไม่">
+                          <b-field label="27. ญาติ/ผู้ดูแลหลักของผู้ป่วย พักอยู่บ้านเดียวกับผู้ป่วยหรือไม่">
                               <div class="block">
                                   <b-radio v-model="form.patientCapital.stayWithFamily" size="is-medium" name="stayWithFamily" native-value="มี">ใช่</b-radio>
                                   <b-radio v-model="form.patientCapital.stayWithFamily" size="is-medium" name="stayWithFamily" native-value="ไม่ใช่">ไม่ใช่</b-radio>
@@ -121,7 +121,7 @@
                           <b-field label="เสียค่าใช้จ่ายในการเดินทางไปกลับบ้านผู้ป่วยเฉลี่ยเท่ากับ" v-if="form.patientCapital.stayWithFamily==='ไม่ใช่'">
                               <b-input type="number" v-model="form.patientCapital.commuteCost" step="any" placeholder="จำนวนบาท"></b-input>
                           </b-field>
-                          <b-field label="27. ตั้งแต่ผู้ป่วยได้รับการวินิจฉัยว่าเป็นโรคนี้ ญาติ/ผู้ดูแลหลักมีการจัดหาสิ่งต่อไปนี้หรือไม่">
+                          <b-field label="28. ตั้งแต่ผู้ป่วยได้รับการวินิจฉัยว่าเป็นโรคนี้ ญาติ/ผู้ดูแลหลักมีการจัดหาสิ่งต่อไปนี้หรือไม่">
                               <div class="block">
                                   <b-radio v-model="form.patientCapital.providedStuff" size="is-medium" name="providedStuff" native-value="มี">ใช่</b-radio>
                                   <b-radio v-model="form.patientCapital.providedStuff" size="is-medium" name="providedStuff" native-value="ไม่ใช่">ไม่ใช่</b-radio>
@@ -130,18 +130,26 @@
                           <b-message title="รายการ" type="is-warning" :closable="false">
                               <div class="block">
                                   <b-field label="ผู้ดูแลผู้ป่วย">
-                                      <b-input placeholder="ระบุอัตราจ้างต่อเดือน" v-model="form.patientCapital.careGiverWage"></b-input>
+                                      <b-input placeholder="ระบุอัตราจ้างต่อเดือน"
+                                               type="number" step="any"
+                                               v-model="form.patientCapital.careGiverWage"></b-input>
                                   </b-field>
                                   <b-field label="ผู้ดูแลทำงานบ้านเนื่องจากการเจ็บป่วยของผู้ป่วย ทำให้ไม่สามารถทำเองได้">
-                                      <b-input placeholder="ระบุอัตราจ้างต่อเดือน" v-model="form.patientCapital.maidWage"></b-input>
+                                      <b-input placeholder="ระบุอัตราจ้างต่อเดือน"
+                                               type="number" step="any"
+                                               v-model="form.patientCapital.maidWage"></b-input>
                                   </b-field>
                                   <b-field label="ผู้ดูแลบุตรหรือบุพการี เนื่องจากการเจ็บป่วยของผู้ป่วย ทำให้ไม่สามารถดูแลได้">
-                                      <b-input placeholder="ระบุอัตราจ้างต่อเดือน" v-model="form.patientCapital.assistantWage"></b-input>
+                                      <b-input placeholder="ระบุอัตราจ้างต่อเดือน"
+                                               type="number" step="any"
+                                               v-model="form.patientCapital.assistantWage"></b-input>
                                   </b-field>
                                   <b-field label="อุปกรณ์ช่วยเหลือต่าง ๆ ของผู้ป่วยเช่น ไม้เท้า รถเข็น ถังออกซิเจน">
                                       <div class="block">
                                           <b-input placeholder="ระบุชนิดอุปกรณ์" v-model="form.patientCapital.equipment"></b-input>
-                                          <b-input placeholder="จำนวนเงิน" v-model="form.patientCapital.equipmentCost"></b-input>
+                                          <b-input placeholder="จำนวนเงิน"
+                                                   type="number" step="any"
+                                                   v-model="form.patientCapital.equipmentCost"></b-input>
                                       </div>
                                   </b-field>
                                   <b-field label="ในปัจจุบันผู้ป่วยได้รับเงินช่วยเหลือจากการเจ็บป่วยหรือไม่">
@@ -165,15 +173,21 @@
                       </b-message>
                       <div class="buttons is-centered">
                           <router-link class="button is-medium is-light" :to="{name: 'HealthRecord'}">
+                            <b-icon pack="fas" icon="chevron-left"></b-icon>
+                            <span>
                               ย้อนกลับ
+                            </span>
                           </router-link>
                         <a class="button is-medium is-success" @click="save">
                           <b-icon pack="far" icon="save"></b-icon>
                           <span>บันทึก</span>
                         </a>
                         <router-link class="button is-medium is-primary" :to="{name: 'Overhead'}">
+                          <span>
                               ต่อไป
-                          </router-link>
+                          </span>
+                          <b-icon pack="fas" icon="chevron-right"></b-icon>
+                        </router-link>
                       </div>
                   </div>
               </div>
@@ -208,9 +222,14 @@
           console.log(idx, e)
           this.form.patientCapital.serviceProviders[idx][e[0]] = e[1]
         },
+        mutateFamily(e) {
+          console.log(e)
+          this.form.patientCapital.familyHelper[e[0]] = e[1]
+        },
         save() {
           let self = this
           this.$store.dispatch('saveForm').then(()=>{
+            this.$store.commit('SET_LAST_UPDATE')
             self.$buefy.dialog.alert({
               title: 'Login Successful',
               message: 'บันทึกข้อมูลเรียบร้อยแล้ว',

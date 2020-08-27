@@ -22,7 +22,7 @@
             <b-input type="number" v-model="foodCost" placeholder="จำนวนบาท"></b-input>
         </b-field>
         <b-field label="อื่น ๆ โปรดระบุ">
-            <b-input type="number" v-model="personOther"></b-input>
+            <b-input v-model="personOther"></b-input>
         </b-field>
         <b-field label="">
             <b-input type="number" v-model="otherCost" placeholder="จำนวนบาท"></b-input>
