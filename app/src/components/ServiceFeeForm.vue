@@ -26,26 +26,61 @@
 <script>
     export default {
         name: "ServiceFeeForm",
-        props: {'title': String},
-        data() {
-            return {
-                wage: 0,
-                positionAllowance: 0,
-                overTime: 0,
-                healthCoverage: 0,
-                otherAllowance: 0,
-                tip: 0
-            }
-        },
+        props: {'title': String, 'service': Object},
         computed: {
+            wage: {
+              get: function() {
+                return this.service.wage || 0
+              },
+              set: function (val) {
+                this.$emit('mutate', ['wage', val])
+              }
+            },
+            positionAllowance: {
+              get: function() {
+                return this.service.positionAllowance || 0
+              },
+              set: function (val) {
+                this.$emit('mutate', ['positionAllowance', val])
+              }
+            },
+            overTime: {
+              get: function() {
+                return this.service.overTime || 0
+              },
+              set: function (val) {
+                this.$emit('mutate', ['overTime', val])
+              }
+            },
+            healthCoverage: {
+              get: function() {
+                return this.service.healthCoverage || 0
+              },
+              set: function (val) {
+                this.$emit('mutate', ['healthCoverage', val])
+              }
+            },
+            otherAllowance: {
+              get: function() {
+                return this.service.otherAllowance || 0
+              },
+              set: function (val) {
+                this.$emit('mutate', ['otherAllowance', val])
+              }
+            },
+            tip: {
+              get: function() {
+                return this.service.tip || 0
+              },
+              set: function (val) {
+                this.$emit('mutate', ['tip', val])
+              }
+            },
             total() {
-                let wage = this.wage !== null ? parseFloat(this.wage) : 0;
-                let tip = this.tip !== null ? parseFloat(this.tip) : 0;
-                let positionAllowance = this.positionAllowance !== null ? parseFloat(this.positionAllowance) : 0;
-                let overTime = this.overTime !== null ? parseFloat(this.overTime) : 0;
-                let healthCoverage = this.healthCoverage !== null ? parseFloat(this.healthCoverage) : 0;
-                let otherAllowance = this.otherAllowance !== null ? parseFloat(this.otherAllowance) : 0;
-                return wage + tip + positionAllowance + overTime + healthCoverage + otherAllowance;
+                return parseFloat(this.wage) +
+                    parseFloat(this.tip) + parseFloat(this.positionAllowance) +
+                    parseFloat(this.overTime) + parseFloat(this.healthCoverage) +
+                    parseFloat(this.otherAllowance);
             }
         }
     }

@@ -114,6 +114,114 @@ export default new Vuex.Store({
                 maidWage: null,
                 careGiverWage: null,
                 providedStuff: null,
+            },
+            overheads: {
+                equipmentType: null,
+                lifespan: null,
+                price: null,
+                purchasedYear: null,
+                amount: null,
+                totalCost: null,
+                depreciationPerYear: null,
+                capPerYear: null,
+                activeStep: 1,
+                dayCareServiceFees: [
+                    {
+                        wage: null,
+                        positionAllowance: null,
+                        overTime: null,
+                        healthCoverage: null,
+                        otherAllowance: null,
+                        tip: null
+                    },
+                    {
+                        wage: null,
+                        positionAllowance: null,
+                        overTime: null,
+                        healthCoverage: null,
+                        otherAllowance: null,
+                        tip: null
+                    },
+                    {
+                        wage: null,
+                        positionAllowance: null,
+                        overTime: null,
+                        healthCoverage: null,
+                        otherAllowance: null,
+                        tip: null
+                    },
+                    {
+                        wage: null,
+                        positionAllowance: null,
+                        overTime: null,
+                        healthCoverage: null,
+                        otherAllowance: null,
+                        tip: null
+                    },
+                    {
+                        wage: null,
+                        positionAllowance: null,
+                        overTime: null,
+                        healthCoverage: null,
+                        otherAllowance: null,
+                        tip: null
+                    },
+                ],
+                homeCareServiceFees: [
+                    {
+                        wage: null,
+                        positionAllowance: null,
+                        overTime: null,
+                        healthCoverage: null,
+                        otherAllowance: null,
+                        tip: null
+                    },
+                    {
+                        wage: null,
+                        positionAllowance: null,
+                        overTime: null,
+                        healthCoverage: null,
+                        otherAllowance: null,
+                        tip: null
+                    },
+                    {
+                        wage: null,
+                        positionAllowance: null,
+                        overTime: null,
+                        healthCoverage: null,
+                        otherAllowance: null,
+                        tip: null
+                    },
+                    {
+                        wage: null,
+                        positionAllowance: null,
+                        overTime: null,
+                        healthCoverage: null,
+                        otherAllowance: null,
+                        tip: null
+                    },
+                    {
+                        wage: null,
+                        positionAllowance: null,
+                        overTime: null,
+                        healthCoverage: null,
+                        otherAllowance: null,
+                        tip: null
+                    },
+                ],
+                dayCareEquipments: [
+                    { amount: null, costPerItem: null, total: null },
+                    { amount: null, costPerItem: null, total: null },
+                    { amount: null, costPerItem: null, total: null },
+                    { amount: null, costPerItem: null, total: null }
+                ],
+                homeCareEquipments: [
+                    { amount: null, costPerItem: null, total: null },
+                    { amount: null, costPerItem: null, total: null },
+                    { amount: null, costPerItem: null, total: null },
+                    { amount: null, costPerItem: null, total: null },
+                    { amount: null, costPerItem: null, total: null }
+                ],
             }
         },
         form: {}

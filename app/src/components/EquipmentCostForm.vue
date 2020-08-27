@@ -16,19 +16,25 @@
 <script>
     export default {
         name: "EquipmentCostForm",
-        props: { 'title': String },
-        data() {
-            return {
-                amount: 0,
-                costPerItem: 0,
-            }
-        },
+        props: { 'title': String, 'care': Object },
         computed: {
-            total() {
-                let amount = this.amount !== null ? parseFloat(this.amount) : 0;
-                let costPerItem = this.costPerItem !== null ? parseFloat(this.costPerItem): 0;
-                return amount * costPerItem;
+          amount: {
+            get: function () { return this.care.amount === null ? 0 : this.care.amount },
+            set: function(val) {
+              this.$emit('mutate', ['amount', val])
             }
+          },
+          costPerItem: {
+            get: function () { return this.care.costPerItem === null ? 0 : this.care.costPerItem },
+            set: function(val) {
+              this.$emit('mutate', ['costPerItem', val])
+            }
+          },
+          total: {
+            get: function() {
+              return this.care.total === null ? 0 : this.care.total
+            }
+          }
         }
     }
 </script>
