@@ -1,9 +1,6 @@
 <template>
 <section class="section">
   <div class="container">
-    <pre>
-      {{ $store.state.form }}
-    </pre>
     <b-table :data="records">
       <template slot-scope="props">
         <b-table-column field="id" label="ID" width="40">
@@ -24,7 +21,7 @@
               <b-icon pack="fas" icon="pencil-alt">
               </b-icon>
             </b-button>
-            <b-button @click="loadForm(props.row.id)" class="is-danger">
+            <b-button @click="confirmDeleteForm(props.row.id)" class="is-danger">
               <b-icon pack="far" icon="trash-alt">
               </b-icon>
             </b-button>
@@ -50,6 +47,29 @@ export default {
       let self = this
       this.$store.dispatch('loadForm', formId).then(()=>{
         self.$router.push({path: '/home'})
+      })
+    },
+    deleteForm: function(formId) {
+      this.$store.dispatch('deleteForm', formId).then(()=>{
+        let fltRecords = this.records.filter((r)=>{
+          return r.id !== formId
+        })
+        this.records = fltRecords
+        this.$buefy.toast.open('Record deleted!')
+      })
+    },
+    confirmDeleteForm: function(formId) {
+      let self = this
+      this.$buefy.dialog.confirm({
+        title: 'Login Successful',
+        message: 'คุณแน่ใจว่าจะลบข้อมูลนี้ หากลบแล้วไม่สามารถเรียกคืนได้',
+        type: 'is-warning',
+        hasIcon: true,
+        icon: 'exclamation-circle',
+        iconPack: 'fas',
+        ariaRole: 'alertdialog',
+        ariaModal: true,
+        onConfirm: ()=>{ self.deleteForm(formId) }
       })
     }
   },

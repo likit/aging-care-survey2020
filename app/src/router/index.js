@@ -21,25 +21,33 @@ Vue.use(VueRouter)
           path: '/',
           name: 'Landing',
           component: Landing,
+          meta: {
+              title: 'Case Report Online Form'
+          }
       },
       {
           path: '/home',
           name: 'Home',
           component: Home,
           meta: {
+              title: 'Home Page',
               requiresAuth: true
           }
       },
       {
           path: '/login',
           name: 'Login',
-          component: Login
+          component: Login,
+          meta: {
+              title: 'Log In',
+          }
       },
       {
           path: '/profile',
           name: 'Profile',
           component: Profile,
           meta: {
+              title: 'Profile',
               requiresAuth: true
           }
       },
@@ -48,6 +56,7 @@ Vue.use(VueRouter)
           name: 'Records',
           component: Record,
           meta: {
+              title: 'My Records',
               requiresAuth: true
           }
       },
@@ -56,6 +65,7 @@ Vue.use(VueRouter)
           name: 'HealthRecord',
           component: HealthRecord,
           meta: {
+              title: 'Form : Health Record',
               requiresAuth: true
           }
       },
@@ -64,6 +74,7 @@ Vue.use(VueRouter)
           name: 'PatientCapital',
           component: PatientCapital,
           meta: {
+              title: 'Form : Patient Captial',
               requiresAuth: true
           }
       },
@@ -72,6 +83,7 @@ Vue.use(VueRouter)
           name: 'Overhead',
           component: Overhead,
           meta: {
+              title: 'Form : Overhead',
               requiresAuth: true
           }
       },
@@ -80,6 +92,7 @@ Vue.use(VueRouter)
           name: 'EQ5D5L',
           component: EQ5D5L,
           meta: {
+              title: 'Form : EQ-5D-5L',
               requiresAuth: true
           }
       },
@@ -88,6 +101,7 @@ Vue.use(VueRouter)
           name: 'VAS',
           component: VAS,
           meta: {
+              title: 'Form : VAS',
               requiresAuth: true
           }
       },
@@ -96,6 +110,7 @@ Vue.use(VueRouter)
           name: 'MMSE',
           component: MMSE,
           meta: {
+              title: 'Form : MMSE',
               requiresAuth: true
           }
       },
@@ -104,6 +119,7 @@ Vue.use(VueRouter)
           name: 'Hospital',
           component: HospitalInfo,
           meta: {
+              title: 'Hospital Info',
               requiresAuth: true
           }
       },

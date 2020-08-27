@@ -3,6 +3,7 @@
     <div class="container box">
       <div class="columns">
         <div class="column is-10 is-offset-1 has-text-centered">
+          <img src="../assets/moph.png" width="100">
           <h1 class="title">แบบฟอร์มบันทึกข้อมูล<br>CASE REPORT FORM</h1>
           <h2 class="subtitle">
             โครงการวิจัย เรื่องการวิเคราะห์ต้นทุนประสิทธิผลของรูปแบบการจัดบริการดูแลกลางวันแบบไปกลับและรูปแบบการดูแลสุขภาพที่บ้านสำหรับผู้สูงอายุที่มีข้อจำกัดในการดำเนินชีวิตประจำวัน
@@ -25,7 +26,7 @@
       <div class="columns">
         <div class="column has-text-centered">
           <button v-if="$store.getters.isUserLoggedIn"
-                  class="button is-primary"
+                  class="button is-primary is-medium"
                   @click="addRecord"
           >
             <span>เพิ่มรายการ</span>

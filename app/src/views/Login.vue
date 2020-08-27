@@ -7,15 +7,16 @@
                 <div class="card">
                     <div class="card-content">
                         <b-field label="Email">
-                            <b-input v-model="email"></b-input>
+                            <b-input type="email" icon="email" v-model="email"></b-input>
                         </b-field>
                         <b-field label="Password">
-                            <b-input type="password" v-model="password" password-reveal></b-input>
+                            <b-input type="password" icon="lock"
+                                     v-model="password" password-reveal></b-input>
                         </b-field>
                         <div class="field">
                             <div class="buttons is-centered">
-                                <button class="button is-link" @click="login">Submit</button>
-                                <button class="button is-danger">Cancel</button>
+                                <button class="button is-link is-medium" @click="login">Go</button>
+                                <button class="button is-danger is-medium">Cancel</button>
                             </div>
                         </div>
                     </div>

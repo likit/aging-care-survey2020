@@ -20,11 +20,10 @@
           </b-message>
         </div>
       </div>
-      <pre>{{ hospitals }}</pre>
       <div class="columns">
         <div class="column is-6 is-offset-3 box">
           <b-field label="โรงพยาบาล">
-            <b-select v-model="form.hospitalName" placeholder="กรุณาเลือกโรงพยาบาล">
+            <b-select v-model="form.hospitalName" placeholder="กรุณาเลือกโรงพยาบาล" size="is-medium">
               <option v-for="hos in hospitals"
                       :key="hos.id"
                       :value="hos.name">{{ hos.name }}

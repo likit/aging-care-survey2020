@@ -4,6 +4,388 @@ import {userProfiles, forms, hospitals} from "@/firebase";
 
 Vue.use(Vuex)
 
+function initialForm() {
+    return {
+        id: null,
+        hospitalName: null,
+        createdBy: null,
+        createdDate: null,
+        lastUpdate: null,
+        recordedDate: null,
+        infoProvider: {
+            is: null,
+            relationship: null,
+            duration: 0,
+        },
+        patientRecord: {
+            pntGender: null,
+            pntPIN: null,
+            pntAge: null,
+            pntAddress: '',
+            pntName: '',
+            pntMarital: null,
+            pntReligion: null,
+            pntReligionNote: null,
+            pntJob: null,
+            pntJobNote: null,
+            pntJobWage: null,
+            pntEducation: null,
+            pntHealthCoverage: null,
+            pntHealthCoverageNote: null,
+            pntHospitalTransferFrom: null,
+            pntHospitalTransferFromNote: null,
+            pntDiagnosis: null,
+            pntComorbidity: null,
+            pntComorbidityNote: null,
+            pntComplication: null,
+            pntComplicationNote: null,
+            pntUnderlyingDisease: null,
+            pntUnderlyingDiseaseNote: null,
+            pntAdmittedDate: null,
+            pntDischargedDate: null,
+            pntDischargeReason: null,
+            pntDischargeReasonNote: null,
+            pntHospitalTransferTo: null,
+            pntHospitalTransferToNote: null,
+            pntDiagnosisDurationYear: 0,
+            pntDiagnosisDurationMonth: 0,
+            pntDiagnosisDurationDay: 0,
+            pntTreatmentNoPharm: null,
+            pntTreatmentPharm: null,
+            pntTreatmentCognition: null,
+            pntTreatmentEmotion: null,
+            pntTreatmentStimulation: null,
+            pntTreatmentBahavior: null,
+            pntTreatmentCaregiver: null,
+            pntTreamentDonepezil: null,
+            pntTreamentRivastigmine: null,
+            pntTreamentGalantamine: null,
+            pntTreamentMemantine: null,
+            pntTreatmentOthers: null,
+            pntTreatmentOthersNote: null,
+            pntTreatmentDurationYear: 0,
+            pntTreatmentDurationMonth: 0,
+            pntTreatmentDurationDay: 0,
+            pntHealthServiceHomeOnly: null,
+            pntHealthServiceDayOnly: null,
+            pntHealthServiceOther: null,
+            pntHealthServiceOtherNote: null
+        },
+        patientCapital: {
+            noDayCareReceived: null,
+            dayCareDurationDay: null,
+            dayCareDurationHour: null,
+            dayCareDurationMinute: null,
+            shelterCost: null,
+            shelterCostTotal: null,
+            expense: null,
+            foodExpense: null,
+            extraExpense: null,
+            hasCompany: null,
+            companyNumber: null,
+            companyPersons: [
+                {
+                    gender: null, timeTaken: null, shelterCost: null,
+                    transportCost: null, foodCost: null, personOther: null, otherCost: null
+                },
+                {
+                    gender: null, timeTaken: null, shelterCost: null,
+                    transportCost: null, foodCost: null, personOther: null, otherCost: null
+                },
+                {
+                    gender: null, timeTaken: null, shelterCost: null,
+                    transportCost: null, foodCost: null, personOther: null, otherCost: null
+                },
+            ],
+            serviceProviders: [
+                {times: null, name: null, totalCost: null},
+                {times: null, name: null, totalCost: null},
+                {times: null, name: null, totalCost: null},
+                {times: null, name: null, totalCost: null},
+            ],
+            otherServiceProvider: null,
+            needHelpFromFamily: null,
+            familyHelper: {
+                gender: null,
+                frequency: null,
+                timePerHelp: null,
+                duration: null,
+                age: null
+            },
+            stayWithFamily: null,
+            commuteCost: null,
+            financialSupport: null,
+            numPersonReceivingFinancialSupport: null,
+            financialSupportSource: null,
+            equipment: null,
+            equipmentCost: null,
+            assistantWage: null,
+            maidWage: null,
+            careGiverWage: null,
+            providedStuff: null,
+        },
+        overheads: {
+            equipmentType: null,
+            lifespan: null,
+            price: null,
+            purchasedYear: null,
+            amount: null,
+            totalCost: null,
+            depreciationPerYear: null,
+            capPerYear: null,
+            activeStep: 1,
+            dayCareServiceFees: [
+                {
+                    wage: null,
+                    positionAllowance: null,
+                    overTime: null,
+                    healthCoverage: null,
+                    otherAllowance: null,
+                    tip: null
+                },
+                {
+                    wage: null,
+                    positionAllowance: null,
+                    overTime: null,
+                    healthCoverage: null,
+                    otherAllowance: null,
+                    tip: null
+                },
+                {
+                    wage: null,
+                    positionAllowance: null,
+                    overTime: null,
+                    healthCoverage: null,
+                    otherAllowance: null,
+                    tip: null
+                },
+                {
+                    wage: null,
+                    positionAllowance: null,
+                    overTime: null,
+                    healthCoverage: null,
+                    otherAllowance: null,
+                    tip: null
+                },
+                {
+                    wage: null,
+                    positionAllowance: null,
+                    overTime: null,
+                    healthCoverage: null,
+                    otherAllowance: null,
+                    tip: null
+                },
+            ],
+            homeCareServiceFees: [
+                {
+                    wage: null,
+                    positionAllowance: null,
+                    overTime: null,
+                    healthCoverage: null,
+                    otherAllowance: null,
+                    tip: null
+                },
+                {
+                    wage: null,
+                    positionAllowance: null,
+                    overTime: null,
+                    healthCoverage: null,
+                    otherAllowance: null,
+                    tip: null
+                },
+                {
+                    wage: null,
+                    positionAllowance: null,
+                    overTime: null,
+                    healthCoverage: null,
+                    otherAllowance: null,
+                    tip: null
+                },
+                {
+                    wage: null,
+                    positionAllowance: null,
+                    overTime: null,
+                    healthCoverage: null,
+                    otherAllowance: null,
+                    tip: null
+                },
+                {
+                    wage: null,
+                    positionAllowance: null,
+                    overTime: null,
+                    healthCoverage: null,
+                    otherAllowance: null,
+                    tip: null
+                },
+            ],
+            dayCareEquipments: [
+                {amount: null, costPerItem: null, total: null},
+                {amount: null, costPerItem: null, total: null},
+                {amount: null, costPerItem: null, total: null},
+                {amount: null, costPerItem: null, total: null}
+            ],
+            homeCareEquipments: [
+                {amount: null, costPerItem: null, total: null},
+                {amount: null, costPerItem: null, total: null},
+                {amount: null, costPerItem: null, total: null},
+                {amount: null, costPerItem: null, total: null},
+                {amount: null, costPerItem: null, total: null}
+            ],
+        },
+        EQ5D5L: {
+            walk: null,
+            selfcare: null,
+            routine: null,
+            pain: null,
+            depression: null,
+        },
+        vas: 0,
+        mmse: {
+            timeOrientation: {
+                q1_1: {
+                    answer: null,
+                    correct: null
+                },
+                q1_2: {
+                    answer: null,
+                    correct: null
+                },
+                q1_3: {
+                    answer: null,
+                    correct: null
+                },
+                q1_4: {
+                    answer: null,
+                    correct: null
+                },
+                q1_5: {
+                    answer: null,
+                    correct: null
+                },
+            },
+            placeOrientation: {
+                location: null,
+                q2_1_1: {
+                    answer: null,
+                    correct: null,
+                },
+                q2_1_2: {
+                    answer: null,
+                    correct: null,
+                },
+                q2_1_3: {
+                    answer: null,
+                    correct: null,
+                },
+                q2_1_4: {
+                    answer: null,
+                    correct: null,
+                },
+                q2_1_5: {
+                    answer: null,
+                    correct: null,
+                },
+                q2_2_1: {
+                    answer: null,
+                    correct: null,
+                },
+                q2_2_2: {
+                    answer: null,
+                    correct: null,
+                },
+                q2_2_3: {
+                    answer: null,
+                    correct: null,
+                },
+                q2_2_4: {
+                    answer: null,
+                    correct: null,
+                },
+                q2_2_5: {
+                    answer: null,
+                    correct: null,
+                },
+            },
+            registration: {
+                recent: {
+                    item1: null,
+                    item2: null,
+                    item3: null,
+                    correct: null
+                },
+                present: {
+                    item1: null,
+                    item2: null,
+                    item3: null,
+                    correct: null
+                }
+            },
+            calculation: {
+                answer1: null,
+                answer2: null,
+                answer3: null,
+                answer4: null,
+                answer5: null,
+            },
+            attention: {
+                answer1: null,
+                answer2: null,
+                answer3: null,
+                answer4: null,
+                answer5: null,
+            },
+            attentionAndCalculation: {
+                calculatable: null,
+                correct: null
+            },
+            recall: {
+                recent: {
+                    item1: null,
+                    item2: null,
+                    item3: null,
+                    correct: null
+                },
+                present: {
+                    item1: null,
+                    item2: null,
+                    item3: null,
+                    correct: null
+                }
+            },
+            naming: {
+                q6_1: {
+                    answer: null,
+                    correct: null
+                },
+                q6_2: {
+                    answer: null,
+                    correct: null
+                },
+            },
+            repetition: {
+                answer: null,
+                correct: null
+            },
+            verbal: {
+                item1: null,
+                item2: null,
+                item3: null,
+                correct: null
+            },
+            written: {
+                correct: null
+            },
+            writing: {
+                sentence: null,
+                meaningful: null
+            },
+            visuo: {
+                correct: null
+            }
+        }
+    }
+}
+
 export default new Vuex.Store({
     state: {
         user: {
@@ -14,386 +396,7 @@ export default new Vuex.Store({
             id: null,
             data: {}
         },
-        clean_form: {
-            id: null,
-            hospitalName: null,
-            createdBy: null,
-            createdDate: null,
-            lastUpdate: null,
-            recordedDate: null,
-            infoProvider: {
-                is: null,
-                relationship: null,
-                duration: 0,
-            },
-            patientRecord: {
-                pntGender: null,
-                pntPIN: null,
-                pntAge: null,
-                pntAddress: '',
-                pntName: '',
-                pntMarital: null,
-                pntReligion: null,
-                pntReligionNote: null,
-                pntJob: null,
-                pntJobNote: null,
-                pntJobWage: null,
-                pntEducation: null,
-                pntHealthCoverage: null,
-                pntHealthCoverageNote: null,
-                pntHospitalTransferFrom: null,
-                pntHospitalTransferFromNote: null,
-                pntDiagnosis: null,
-                pntComorbidity: null,
-                pntComorbidityNote: null,
-                pntComplication: null,
-                pntComplicationNote: null,
-                pntUnderlyingDisease: null,
-                pntUnderlyingDiseaseNote: null,
-                pntAdmittedDate: null,
-                pntDischargedDate: null,
-                pntDischargeReason: null,
-                pntDischargeReasonNote: null,
-                pntHospitalTransferTo: null,
-                pntHospitalTransferToNote: null,
-                pntDiagnosisDurationYear: 0,
-                pntDiagnosisDurationMonth: 0,
-                pntDiagnosisDurationDay: 0,
-                pntTreatmentNoPharm: null,
-                pntTreatmentPharm: null,
-                pntTreatmentCognition: null,
-                pntTreatmentEmotion: null,
-                pntTreatmentStimulation: null,
-                pntTreatmentBahavior: null,
-                pntTreatmentCaregiver: null,
-                pntTreamentDonepezil: null,
-                pntTreamentRivastigmine: null,
-                pntTreamentGalantamine: null,
-                pntTreamentMemantine: null,
-                pntTreatmentOthers: null,
-                pntTreatmentOthersNote: null,
-                pntTreatmentDurationYear: 0,
-                pntTreatmentDurationMonth: 0,
-                pntTreatmentDurationDay: 0,
-                pntHealthServiceHomeOnly: null,
-                pntHealthServiceDayOnly: null,
-                pntHealthServiceOther: null,
-                pntHealthServiceOtherNote: null
-            },
-            patientCapital: {
-                noDayCareReceived: null,
-                dayCareDurationDay: null,
-                dayCareDurationHour: null,
-                dayCareDurationMinute: null,
-                shelterCost: null,
-                shelterCostTotal: null,
-                expense: null,
-                foodExpense: null,
-                extraExpense: null,
-                hasCompany: null,
-                companyNumber: null,
-                companyPersons: [
-                    {
-                        gender: null, timeTaken: null, shelterCost: null,
-                        transportCost: null, foodCost: null, personOther: null, otherCost: null
-                    },
-                    {
-                        gender: null, timeTaken: null, shelterCost: null,
-                        transportCost: null, foodCost: null, personOther: null, otherCost: null
-                    },
-                    {
-                        gender: null, timeTaken: null, shelterCost: null,
-                        transportCost: null, foodCost: null, personOther: null, otherCost: null
-                    },
-                ],
-                serviceProviders: [
-                    {times: null, name: null, totalCost: null},
-                    {times: null, name: null, totalCost: null},
-                    {times: null, name: null, totalCost: null},
-                    {times: null, name: null, totalCost: null},
-                ],
-                otherServiceProvider: null,
-                needHelpFromFamily: null,
-                familyHelper: {
-                    gender: null,
-                    frequency: null,
-                    timePerHelp: null,
-                    duration: null,
-                    age: null
-                },
-                stayWithFamily: null,
-                commuteCost: null,
-                financialSupport: null,
-                numPersonReceivingFinancialSupport: null,
-                financialSupportSource: null,
-                equipment: null,
-                equipmentCost: null,
-                assistantWage: null,
-                maidWage: null,
-                careGiverWage: null,
-                providedStuff: null,
-            },
-            overheads: {
-                equipmentType: null,
-                lifespan: null,
-                price: null,
-                purchasedYear: null,
-                amount: null,
-                totalCost: null,
-                depreciationPerYear: null,
-                capPerYear: null,
-                activeStep: 1,
-                dayCareServiceFees: [
-                    {
-                        wage: null,
-                        positionAllowance: null,
-                        overTime: null,
-                        healthCoverage: null,
-                        otherAllowance: null,
-                        tip: null
-                    },
-                    {
-                        wage: null,
-                        positionAllowance: null,
-                        overTime: null,
-                        healthCoverage: null,
-                        otherAllowance: null,
-                        tip: null
-                    },
-                    {
-                        wage: null,
-                        positionAllowance: null,
-                        overTime: null,
-                        healthCoverage: null,
-                        otherAllowance: null,
-                        tip: null
-                    },
-                    {
-                        wage: null,
-                        positionAllowance: null,
-                        overTime: null,
-                        healthCoverage: null,
-                        otherAllowance: null,
-                        tip: null
-                    },
-                    {
-                        wage: null,
-                        positionAllowance: null,
-                        overTime: null,
-                        healthCoverage: null,
-                        otherAllowance: null,
-                        tip: null
-                    },
-                ],
-                homeCareServiceFees: [
-                    {
-                        wage: null,
-                        positionAllowance: null,
-                        overTime: null,
-                        healthCoverage: null,
-                        otherAllowance: null,
-                        tip: null
-                    },
-                    {
-                        wage: null,
-                        positionAllowance: null,
-                        overTime: null,
-                        healthCoverage: null,
-                        otherAllowance: null,
-                        tip: null
-                    },
-                    {
-                        wage: null,
-                        positionAllowance: null,
-                        overTime: null,
-                        healthCoverage: null,
-                        otherAllowance: null,
-                        tip: null
-                    },
-                    {
-                        wage: null,
-                        positionAllowance: null,
-                        overTime: null,
-                        healthCoverage: null,
-                        otherAllowance: null,
-                        tip: null
-                    },
-                    {
-                        wage: null,
-                        positionAllowance: null,
-                        overTime: null,
-                        healthCoverage: null,
-                        otherAllowance: null,
-                        tip: null
-                    },
-                ],
-                dayCareEquipments: [
-                    {amount: null, costPerItem: null, total: null},
-                    {amount: null, costPerItem: null, total: null},
-                    {amount: null, costPerItem: null, total: null},
-                    {amount: null, costPerItem: null, total: null}
-                ],
-                homeCareEquipments: [
-                    {amount: null, costPerItem: null, total: null},
-                    {amount: null, costPerItem: null, total: null},
-                    {amount: null, costPerItem: null, total: null},
-                    {amount: null, costPerItem: null, total: null},
-                    {amount: null, costPerItem: null, total: null}
-                ],
-            },
-            EQ5D5L: {
-                walk: null,
-                selfcare: null,
-                routine: null,
-                pain: null,
-                depression: null,
-            },
-            vas: 0,
-            mmse: {
-                timeOrientation: {
-                    q1_1: {
-                        answer: null,
-                        correct: null
-                    },
-                    q1_2: {
-                        answer: null,
-                        correct: null
-                    },
-                    q1_3: {
-                        answer: null,
-                        correct: null
-                    },
-                    q1_4: {
-                        answer: null,
-                        correct: null
-                    },
-                    q1_5: {
-                        answer: null,
-                        correct: null
-                    },
-                },
-                placeOrientation: {
-                    location: null,
-                    q2_1_1: {
-                        answer: null,
-                        correct: null,
-                    },
-                    q2_1_2: {
-                        answer: null,
-                        correct: null,
-                    },
-                    q2_1_3: {
-                        answer: null,
-                        correct: null,
-                    },
-                    q2_1_4: {
-                        answer: null,
-                        correct: null,
-                    },
-                    q2_1_5: {
-                        answer: null,
-                        correct: null,
-                    },
-                    q2_2_1: {
-                        answer: null,
-                        correct: null,
-                    },
-                    q2_2_2: {
-                        answer: null,
-                        correct: null,
-                    },
-                    q2_2_3: {
-                        answer: null,
-                        correct: null,
-                    },
-                    q2_2_4: {
-                        answer: null,
-                        correct: null,
-                    },
-                    q2_2_5: {
-                        answer: null,
-                        correct: null,
-                    },
-                },
-                registration: {
-                    recent: {
-                        item1: null,
-                        item2: null,
-                        item3: null,
-                        correct: null
-                    },
-                    present: {
-                        item1: null,
-                        item2: null,
-                        item3: null,
-                        correct: null
-                    }
-                },
-                calculation: {
-                    answer1: null,
-                    answer2: null,
-                    answer3: null,
-                    answer4: null,
-                    answer5: null,
-                },
-                attention: {
-                    answer1: null,
-                    answer2: null,
-                    answer3: null,
-                    answer4: null,
-                    answer5: null,
-                },
-                attentionAndCalculation: {
-                    calculatable: null,
-                    correct: null
-                },
-                recall: {
-                    recent: {
-                        item1: null,
-                        item2: null,
-                        item3: null,
-                        correct: null
-                    },
-                    present: {
-                        item1: null,
-                        item2: null,
-                        item3: null,
-                        correct: null
-                    }
-                },
-                naming: {
-                    q6_1: {
-                        answer: null,
-                        correct: null
-                    },
-                    q6_2: {
-                        answer: null,
-                        correct: null
-                    },
-                },
-                repetition: {
-                    answer: null,
-                    correct: null
-                },
-                verbal: {
-                    item1: null,
-                    item2: null,
-                    item3: null,
-                    correct: null
-                },
-                written: {
-                    correct: null
-                },
-                writing: {
-                    sentence: null,
-                    meaningful: null
-                },
-                visuo: {
-                    correct: null
-                }
-            }
-        },
-        form: {},
+        form: initialForm(),
         cleanHospitalInfo: {
             name: null,
             address: null,
@@ -429,7 +432,7 @@ export default new Vuex.Store({
             state.userProfile.data = {}
         },
         RESET_FORM(state) {
-            state.form = state.clean_form
+            state.form = initialForm()
         },
         SET_CURRENT_FORM(state, formData) {
             state.form = formData
@@ -585,6 +588,12 @@ export default new Vuex.Store({
         },
         setCurrentHospital({commit}, hospital){
             commit('SET_HOSPITAL_INFO', hospital)
+        },
+        deleteForm({commit, state}, formId) {
+            forms.doc(formId).delete()
+            if (state.form.id === formId) {
+                commit('RESET_FORM')
+            }
         }
     },
     modules: {}
