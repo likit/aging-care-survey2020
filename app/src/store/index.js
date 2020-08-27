@@ -222,7 +222,15 @@ export default new Vuex.Store({
                     { amount: null, costPerItem: null, total: null },
                     { amount: null, costPerItem: null, total: null }
                 ],
-            }
+            },
+            EQ5D5L: {
+                walk: null,
+                selfcare: null,
+                routine: null,
+                pain: null,
+                depression: null,
+            },
+            vas: 0
         },
         form: {}
     },

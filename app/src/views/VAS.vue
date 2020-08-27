@@ -14,7 +14,7 @@
             <h1 class="title is-size-3">แบบประเมินคุณภาพชีวิต</h1>
             <b-message title="คำชี้แจง" type="is-primary">
                 <b-field label="VAS">
-                    <b-slider size="is-large" v-model="vas" type="is-info" :min="0" :max="100">
+                    <b-slider size="is-large" v-model="form.vas" type="is-info" :min="0" :max="100">
                         <template v-for="val in [10,20,30,40,50,60,70,80,90]">
                             <b-slider-tick :value="val" :key="val">{{ val }}</b-slider-tick>
                         </template>
@@ -36,11 +36,14 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex'
     export default {
         name: "VAS",
+      computed: {
+          ...mapState(['form'])
+      },
         data() {
             return {
-                vas: 0,
                 activeStep: 3,
             }
         }
