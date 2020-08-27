@@ -21,7 +21,7 @@
         <div class="">
           <div class="columns">
             <pre>
-              {{ form }}
+              {{ form.patientRecord }}
             </pre>
           </div>
             <div class="columns">
@@ -436,7 +436,7 @@
                             <b-icon pack="far" icon="save"></b-icon>
                             <span>บันทึก</span>
                           </a>
-                          <a class="button is-medium is-primary" href="/patient-capital">
+                          <a class="button is-medium is-primary" @click="next">
                             <span>ต่อไป</span>
                             <b-icon pack="fas" icon="chevron-right"></b-icon>
                           </a>
@@ -454,6 +454,9 @@
         methods: {
           goBack() {
             this.$router.push({'name': 'Home'})
+          },
+          next() {
+            this.$router.push({name: 'PatientCapital'})
           },
           save() {
             let self = this

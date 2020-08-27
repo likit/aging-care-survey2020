@@ -85,7 +85,7 @@ export default {
         return this.$store.state.form.recordedDate;
       },
       set(recordedDate) {
-        this.$store.commit('SET_RECORDED_DATE', {recordedDate})
+        this.$store.commit('SET_RECORDED_DATE', recordedDate)
       }
     },
     infoProviderIs: {

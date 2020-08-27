@@ -14,7 +14,7 @@ export default new Vuex.Store({
             id: null,
             data: {}
         },
-        form: {
+        clean_form: {
             id: null,
             createdBy: null,
             createdDate: null,
@@ -74,8 +74,43 @@ export default new Vuex.Store({
                 pntTreatmentDurationYear: 0,
                 pntTreatmentDurationMonth: 0,
                 pntTreatmentDurationDay: 0,
+            },
+            patientCapital: {
+                noDayCareReceived: null,
+                dayCareDurationDay: null,
+                dayCareDurationHour: null,
+                dayCareDurationMinute: null,
+                shelterCost: null,
+                shelterCostTotal: null,
+                expense: null,
+                foodExpense: null,
+                extraExpense: null,
+                hasCompany: null,
+                companyNumber: null,
+                companyPersons: [
+                    {gender: null, timeTaken: null, shelterCost: null,
+                        transportCost: null, foodCost: 3000, personOther: null, otherCost: null},
+                    {gender: null, timeTaken: null, shelterCost: null,
+                        transportCost: null, foodCost: 4000, personOther: null, otherCost: null},
+                    {gender: null, timeTaken: null, shelterCost: null,
+                        transportCost: null, foodCost: 500, personOther: null, otherCost: null},
+                    ],
+                otherServiceProvider: null,
+                needHelpFromFamily: null,
+                stayWithFamily: null,
+                commuteCost: null,
+                financialSupport: null,
+                numPersonReceivingFinancialSupport: null,
+                financialSupportSource: null,
+                equipment: null,
+                equipmentCost: null,
+                assistantWage: null,
+                maidWage: null,
+                careGiverWage: null,
+                providedStuff: null,
             }
-        }
+        },
+        form: {}
     },
     getters: {
         isUserLoggedIn: (state) => {
@@ -99,6 +134,9 @@ export default new Vuex.Store({
         CLEAR_USER_PROFILE(state) {
             state.userProfile.id = null
             state.userProfile.data = {}
+        },
+        RESET_FORM(state) {
+            state.form = state.clean_form
         },
         SET_CURRENT_FORM(state, formData) {
             state.form = formData
@@ -202,6 +240,9 @@ export default new Vuex.Store({
                     commit('SET_FORM_ID', docRef.id)
                 })
             }
+        },
+        createNewRecord({ commit }) {
+            commit('RESET_FORM')
         },
         logoutUser({ commit }) {
             commit('CLEAR_USER_PROFILE')

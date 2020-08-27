@@ -21,7 +21,10 @@
       </div>
       <div class="columns">
         <div class="column has-text-centered">
-          <button v-if="$store.getters.isUserLoggedIn">
+          <button v-if="$store.getters.isUserLoggedIn"
+                  class="button is-primary"
+                  @click="addRecord"
+          >
             <span>เพิ่มรายการ</span>
             <b-icon pack="fas" icon="plus"></b-icon>
           </button>
@@ -42,6 +45,14 @@ import Profile from "@/views/Profile"
 export default {
   name: 'landing',
   components: {Profile},
+  methods: {
+    addRecord: function() {
+      let self = this
+      this.$store.dispatch('createNewRecord').then(()=>{
+        self.$router.push({name: 'Home'})
+      })
+    }
+  }
 }
 
 </script>
