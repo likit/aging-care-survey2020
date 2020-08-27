@@ -230,7 +230,150 @@ export default new Vuex.Store({
                 pain: null,
                 depression: null,
             },
-            vas: 0
+            vas: 0,
+            mmse: {
+                timeOrientation: {
+                    q1_1: {
+                        answer: null,
+                        correct: null
+                    },
+                    q1_2: {
+                        answer: null,
+                        correct: null
+                    },
+                    q1_3: {
+                        answer: null,
+                        correct: null
+                    },
+                    q1_4: {
+                        answer: null,
+                        correct: null
+                    },
+                    q1_5: {
+                        answer: null,
+                        correct: null
+                    },
+                },
+                placeOrientation: {
+                    location: null,
+                    q2_1_1: {
+                        answer: null,
+                        correct: null,
+                    },
+                    q2_1_2: {
+                        answer: null,
+                        correct: null,
+                    },
+                    q2_1_3: {
+                        answer: null,
+                        correct: null,
+                    },
+                    q2_1_4: {
+                        answer: null,
+                        correct: null,
+                    },
+                    q2_1_5: {
+                        answer: null,
+                        correct: null,
+                    },
+                    q2_2_1: {
+                        answer: null,
+                        correct: null,
+                    },
+                    q2_2_2: {
+                        answer: null,
+                        correct: null,
+                    },
+                    q2_2_3: {
+                        answer: null,
+                        correct: null,
+                    },
+                    q2_2_4: {
+                        answer: null,
+                        correct: null,
+                    },
+                    q2_2_5: {
+                        answer: null,
+                        correct: null,
+                    },
+                },
+                registration: {
+                    recent: {
+                        item1: null,
+                        item2: null,
+                        item3: null,
+                        correct: null
+                    },
+                    present: {
+                        item1: null,
+                        item2: null,
+                        item3: null,
+                        correct: null
+                    }
+                },
+                calculation: {
+                    answer1: null,
+                    answer2: null,
+                    answer3: null,
+                    answer4: null,
+                    answer5: null,
+                },
+                attention: {
+                    answer1: null,
+                    answer2: null,
+                    answer3: null,
+                    answer4: null,
+                    answer5: null,
+                },
+                attentionAndCalculation: {
+                    calculatable: null,
+                    correct: null
+                },
+                recall: {
+                    recent: {
+                        item1: null,
+                        item2: null,
+                        item3: null,
+                        correct: null
+                    },
+                    present: {
+                        item1: null,
+                        item2: null,
+                        item3: null,
+                        correct: null
+                    }
+                },
+                naming: {
+                    q6_1: {
+                        answer: null,
+                        correct: null
+                    },
+                    q6_2: {
+                        answer: null,
+                        correct: null
+                    },
+                },
+                repetition: {
+                    answer: null,
+                    correct: null
+                },
+                verbal: {
+                    item1: null,
+                    item2: null,
+                    item3: null,
+                    correct: null
+                },
+                written: {
+                    correct: null
+                },
+                writing: {
+                    sentence: null,
+                    meaningful: null
+                },
+                visuo: {
+                    correct: null
+                }
+            }
         },
         form: {}
     },
