@@ -22,14 +22,16 @@
                 </b-field>
             </b-message>
             <div class="buttons is-centered">
-                <a class="button is-medium is-light"
-                   href="/EQ-5D-5L">
+                <router-link class="button is-medium is-light" :to="{name: 'EQ5D5L'}">
                     ย้อนกลับ
-                </a>
-                <a class="button is-medium is-primary"
-                   href="/MMSE">
+                </router-link>
+              <a class="button is-medium is-success" @click="save">
+                <b-icon pack="far" icon="save"></b-icon>
+                <span>บันทึก</span>
+              </a>
+              <router-link class="button is-medium is-primary" :to="{name: 'MMSE'}">
                     ต่อไป
-                </a>
+                </router-link>
             </div>
         </div>
     </section>
@@ -46,7 +48,35 @@
             return {
                 activeStep: 3,
             }
+        },
+      methods: {
+        save() {
+          let self = this
+          this.$store.dispatch('saveForm').then(()=>{
+            self.$buefy.dialog.alert({
+              title: 'Login Successful',
+              message: 'บันทึกข้อมูลเรียบร้อยแล้ว',
+              type: 'is-success',
+              hasIcon: true,
+              icon: 'check-circle',
+              iconPack: 'fa',
+              ariaRole: 'alertdialog',
+              ariaModal: true,
+            })
+          }).catch(()=>{
+            self.$buefy.dialog.alert({
+              title: 'Error!',
+              message: 'โปรแกรมไม่สามารถบันทึกข้อมูลได้ โปรดลองใหม่อีกครั้ง',
+              type: 'is-danger',
+              hasIcon: true,
+              icon: 'times-circle',
+              iconPack: 'fa',
+              ariaRole: 'alertdialog',
+              ariaModal: true
+            })
+          })
         }
+      }
     }
 </script>
 
