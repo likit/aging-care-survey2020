@@ -20,9 +20,17 @@
           </b-message>
         </div>
       </div>
-      <pre>{{form.infoProvider}}</pre>
+      <pre>{{ hospitals }}</pre>
       <div class="columns">
         <div class="column is-6 is-offset-3 box">
+          <b-field label="โรงพยาบาล">
+            <b-select v-model="form.hospitalName" placeholder="กรุณาเลือกโรงพยาบาล">
+              <option v-for="hos in hospitals"
+                      :key="hos.id"
+                      :value="hos.name">{{ hos.name }}
+              </option>
+            </b-select>
+          </b-field>
           <b-field label="วันที่บันทึกข้อมูล">
             <b-datepicker
                 :mobile-native="false"
@@ -90,7 +98,11 @@ export default {
         this.$store.commit('SET_RECORDED_DATE', recordedDate)
       }
     },
-    ...mapState(['form'])
+    ...mapState(['form', 'hospitals'])
+  },
+  mounted() {
+    if (this.hospitals.length === 0)
+      this.$store.dispatch('fetchHospitals')
   },
   methods: {
     goNext() {

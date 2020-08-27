@@ -19,11 +19,13 @@ const db = firebase.firestore()
 const auth = firebase.auth()
 const userProfiles = db.collection('profiles')
 const forms = db.collection('forms')
+const hospitals = db.collection('hospitals')
 
 export {
     firebase as fb,
     db,
     auth,
     userProfiles,
-    forms
+    forms,
+    hospitals
 };

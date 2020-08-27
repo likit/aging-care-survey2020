@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import {userProfiles, forms} from "@/firebase";
+import {userProfiles, forms, hospitals} from "@/firebase";
 
 Vue.use(Vuex)
 
@@ -16,6 +16,7 @@ export default new Vuex.Store({
         },
         clean_form: {
             id: null,
+            hospitalName: null,
             createdBy: null,
             createdDate: null,
             lastUpdate: null,
@@ -74,6 +75,10 @@ export default new Vuex.Store({
                 pntTreatmentDurationYear: 0,
                 pntTreatmentDurationMonth: 0,
                 pntTreatmentDurationDay: 0,
+                pntHealthServiceHomeOnly: null,
+                pntHealthServiceDayOnly: null,
+                pntHealthServiceOther: null,
+                pntHealthServiceOtherNote: null
             },
             patientCapital: {
                 noDayCareReceived: null,
@@ -88,13 +93,19 @@ export default new Vuex.Store({
                 hasCompany: null,
                 companyNumber: null,
                 companyPersons: [
-                    {gender: null, timeTaken: null, shelterCost: null,
-                        transportCost: null, foodCost: 3000, personOther: null, otherCost: null},
-                    {gender: null, timeTaken: null, shelterCost: null,
-                        transportCost: null, foodCost: 4000, personOther: null, otherCost: null},
-                    {gender: null, timeTaken: null, shelterCost: null,
-                        transportCost: null, foodCost: 500, personOther: null, otherCost: null},
-                    ],
+                    {
+                        gender: null, timeTaken: null, shelterCost: null,
+                        transportCost: null, foodCost: null, personOther: null, otherCost: null
+                    },
+                    {
+                        gender: null, timeTaken: null, shelterCost: null,
+                        transportCost: null, foodCost: null, personOther: null, otherCost: null
+                    },
+                    {
+                        gender: null, timeTaken: null, shelterCost: null,
+                        transportCost: null, foodCost: null, personOther: null, otherCost: null
+                    },
+                ],
                 serviceProviders: [
                     {times: null, name: null, totalCost: null},
                     {times: null, name: null, totalCost: null},
@@ -217,17 +228,17 @@ export default new Vuex.Store({
                     },
                 ],
                 dayCareEquipments: [
-                    { amount: null, costPerItem: null, total: null },
-                    { amount: null, costPerItem: null, total: null },
-                    { amount: null, costPerItem: null, total: null },
-                    { amount: null, costPerItem: null, total: null }
+                    {amount: null, costPerItem: null, total: null},
+                    {amount: null, costPerItem: null, total: null},
+                    {amount: null, costPerItem: null, total: null},
+                    {amount: null, costPerItem: null, total: null}
                 ],
                 homeCareEquipments: [
-                    { amount: null, costPerItem: null, total: null },
-                    { amount: null, costPerItem: null, total: null },
-                    { amount: null, costPerItem: null, total: null },
-                    { amount: null, costPerItem: null, total: null },
-                    { amount: null, costPerItem: null, total: null }
+                    {amount: null, costPerItem: null, total: null},
+                    {amount: null, costPerItem: null, total: null},
+                    {amount: null, costPerItem: null, total: null},
+                    {amount: null, costPerItem: null, total: null},
+                    {amount: null, costPerItem: null, total: null}
                 ],
             },
             EQ5D5L: {
@@ -382,7 +393,17 @@ export default new Vuex.Store({
                 }
             }
         },
-        form: {}
+        form: {},
+        cleanHospitalInfo: {
+            name: null,
+            address: null,
+            phone: null,
+            numBed: null,
+            level: null,
+            standard: null,
+        },
+        hospitalInfo: {},
+        hospitals: []
     },
     getters: {
         isUserLoggedIn: (state) => {
@@ -437,23 +458,59 @@ export default new Vuex.Store({
         SET_RECORDED_DATE(state, recordedDate) {
             // state.form.recordedDate = Object.assign({}, state.form.recordedDate, recordedDate)
             state.form.recordedDate = recordedDate
+        },
+        RESET_HOSPITAL_INFO(state) {
+            state.hospitalInfo = state.cleanHospitalInfo
+        },
+        ADD_HOSPITAL(state, hospital) {
+            state.hospitals.push(hospital)
+        },
+        SET_HOSPITAL_ID(state, hid) {
+            state.hospitalInfo.id = hid
+        },
+        SET_HOSPITAL_INFO(state, info) {
+            state.hospitalInfo = info
         }
     },
     actions: {
-        fetchUser({ commit }, user) {
+        fetchUser({commit}, user) {
             if (user) {
                 commit("SET_CURRENT_USER", user.email)
                 commit("SET_LOGIN_TRUE")
             }
         },
-        fetchProfile({ commit }, email) {
+        fetchHospitals({commit, state}) {
+            if (state.hospitals.length === 0) {
+                hospitals.get().then(
+                    (snapshot) => {
+                        snapshot.forEach((h) => {
+                            let hosData = h.data()
+                            hosData['id'] = h.id
+                            commit('ADD_HOSPITAL', hosData)
+                        })
+                    }
+                ).catch(() => {
+                    self.$buefy.dialog.alert({
+                        title: 'โปรแกรมมีปัญหาในการโหลดข้อมูล',
+                        message: 'โปรแกรมไม่สามารถดาวน์โหลดข้อมูลทางอินเตอร์เน็ตได้ กรุณาตรวจสอบการเชื่อมต่อของท่านก่อนลองใช้งานอีกครั้ง',
+                        type: 'is-danger',
+                        hasIcon: true,
+                        icon: 'times-circle',
+                        iconPack: 'fa',
+                        ariaRole: 'alertdialog',
+                        ariaModal: true
+                    })
+                })
+            }
+        },
+        fetchProfile({commit}, email) {
             let self = this;
             userProfiles.where('email', '==', email).get().then(
-                (snapshot)=>{
+                (snapshot) => {
                     console.log(snapshot.docs[0])
                     commit('SET_USER_PROFILE_DATA', snapshot.docs[0])
                 }
-            ).catch(()=> {
+            ).catch(() => {
                 self.$buefy.dialog.alert({
                     title: 'โปรแกรมมีปัญหาในการโหลดข้อมูล',
                     message: 'โปรแกรมไม่สามารถดาวน์โหลดข้อมูลทางอินเตอร์เน็ตได้ กรุณาตรวจสอบการเชื่อมต่อของท่านก่อนลองใช้งานอีกครั้ง',
@@ -466,18 +523,20 @@ export default new Vuex.Store({
                 })
             })
         },
-        updateUserProfile({ commit }, profile) {
+        updateUserProfile({commit}, profile) {
             userProfiles.doc(profile.id).update(profile.data).then(
-                ()=>{ commit('SET_USER_PROFILE_DATA', profile) }
-            ).catch((error)=>{
+                () => {
+                    commit('SET_USER_PROFILE_DATA', profile)
+                }
+            ).catch((error) => {
                 console.log(error)
             })
         },
-        updateFormCreator({ commit }) {
+        updateFormCreator({commit}) {
             commit('SET_FORM_CREATOR')
         },
-        loadForm({ commit }, formId) {
-            forms.doc(formId).get().then((doc)=>{
+        loadForm({commit}, formId) {
+            forms.doc(formId).get().then((doc) => {
                 if (doc.exists) {
                     commit('SET_CURRENT_FORM', doc.data())
                     commit('SET_FORM_ID', doc.id)
@@ -491,7 +550,7 @@ export default new Vuex.Store({
                 }
             })
         },
-        saveForm({ commit, state }) {
+        saveForm({commit, state}) {
             commit('SET_FORM_CREATOR')
             if (state.form.id !== null) {
                 commit('SET_FORM_LAST_UPDATE', new Date())
@@ -499,18 +558,33 @@ export default new Vuex.Store({
             } else {
                 commit('SET_FORM_CREATED_DATE', new Date())
                 commit('SET_FORM_LAST_UPDATE', new Date())
-                forms.add(state.form).then((docRef)=>{
+                forms.add(state.form).then((docRef) => {
                     commit('SET_FORM_ID', docRef.id)
                 })
             }
         },
-        createNewRecord({ commit }) {
+        saveHospital({state, commit}) {
+            if (state.hospitalInfo.id !== null) {
+                hospitals.doc(state.hospitalInfo.id).set(state.hospitalInfo)
+            } else {
+                hospitals.add(state.hospitalInfo).then((docRef) => {
+                    commit('SET_HOSPITAL_ID', docRef.id)
+                })
+            }
+        },
+        createNewRecord({commit}) {
             commit('RESET_FORM')
         },
-        logoutUser({ commit }) {
+        logoutUser({commit}) {
             commit('CLEAR_USER_PROFILE')
             commit('SET_CURRENT_USER', null)
             commit('SET_LOGIN_FALSE')
+        },
+        resetHospitalInfo({commit}) {
+            commit('RESET_HOSPITAL_INFO')
+        },
+        setCurrentHospital({commit}, hospital){
+            commit('SET_HOSPITAL_INFO', hospital)
         }
     },
     modules: {}

@@ -12,6 +12,7 @@ import EQ5D5L from "../views/EQ5D5L"
 import VAS from "../views/VAS"
 import MMSE from "../views/MMSE"
 import store from "../store"
+import HospitalInfo from "@/views/HospitalInfo"
 
 Vue.use(VueRouter)
 
@@ -69,22 +70,42 @@ Vue.use(VueRouter)
       {
           path: '/overhead',
           name: 'Overhead',
-          component: Overhead
+          component: Overhead,
+          meta: {
+              requiresAuth: true
+          }
       },
       {
           path: '/EQ-5D-5L',
           name: 'EQ5D5L',
-          component: EQ5D5L
+          component: EQ5D5L,
+          meta: {
+              requiresAuth: true
+          }
       },
       {
           path: '/VAS',
           name: 'VAS',
-          component: VAS
+          component: VAS,
+          meta: {
+              requiresAuth: true
+          }
       },
       {
           path: '/MMSE',
           name: 'MMSE',
-          component: MMSE
+          component: MMSE,
+          meta: {
+              requiresAuth: true
+          }
+      },
+      {
+          path: '/hospital/add',
+          name: 'Hospital',
+          component: HospitalInfo,
+          meta: {
+              requiresAuth: true
+          }
       },
       {
           path: '/about',
@@ -104,12 +125,11 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next)=>{
     const requiresAuth = to.matched.some(x=>x.meta.requiresAuth)
-    if(requiresAuth === true) {
-        if (store.getters.isUserLoggedIn === false) {
-            next('/login')
-        }
+    if(requiresAuth === true && store.getters.isUserLoggedIn === false) {
+        next('/login')
+    } else {
+        next()
     }
-    next()
 })
 
 export default router

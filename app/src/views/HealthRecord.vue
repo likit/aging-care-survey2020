@@ -430,6 +430,9 @@
                                     </b-checkbox>
                                 </div>
                             </b-field>
+                            <b-field label="โปรดระบุ" v-if="form.patientRecord.pntHealthServiceOther">
+                              <b-input v-model="form.patientRecord.pntHealthServiceOtherNote"></b-input>
+                            </b-field>
                         </b-message>
                         <div class="buttons is-centered">
                           <a class="button is-medium is-light" @click="goBack">

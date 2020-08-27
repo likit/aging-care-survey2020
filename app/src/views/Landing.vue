@@ -2,8 +2,11 @@
   <section class="section">
     <div class="container box">
       <div class="columns">
-        <div class="column is-8 is-offset-2 has-text-centered">
+        <div class="column is-10 is-offset-1 has-text-centered">
           <h1 class="title">แบบฟอร์มบันทึกข้อมูล<br>CASE REPORT FORM</h1>
+          <h2 class="subtitle">
+            โครงการวิจัย เรื่องการวิเคราะห์ต้นทุนประสิทธิผลของรูปแบบการจัดบริการดูแลกลางวันแบบไปกลับและรูปแบบการดูแลสุขภาพที่บ้านสำหรับผู้สูงอายุที่มีข้อจำกัดในการดำเนินชีวิตประจำวัน
+          </h2>
 
           <b-notification type="is-light" aria-close-label="Close notification"
             v-if="$store.getters.isUserLoggedIn">
