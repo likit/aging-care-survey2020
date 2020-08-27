@@ -15,13 +15,32 @@
 <script>
     export default {
         name: "ServiceProvider",
-        props: {'title': String},
-        data() {
-            return {
-                times: null,
-                totalCost: null,
-                name: null,
-            }
+        props: {'title': String, 'provider': Object},
+        computed: {
+            times: {
+              get: function() {
+                return this.provider.times
+              },
+              set: function(val) {
+                this.$emit('mutate', ['times', val])
+              }
+            },
+            totalCost: {
+              get: function() {
+                return this.provider.totalCost
+              },
+              set: function(val) {
+                this.$emit('mutate', ['totalCost', val])
+              }
+            },
+            name: {
+              get: function() {
+                return this.provider.name
+              },
+              set: function(val) {
+                this.$emit('mutate', ['name', val])
+              }
+            },
         }
     }
 </script>

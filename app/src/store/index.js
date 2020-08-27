@@ -95,6 +95,12 @@ export default new Vuex.Store({
                     {gender: null, timeTaken: null, shelterCost: null,
                         transportCost: null, foodCost: 500, personOther: null, otherCost: null},
                     ],
+                serviceProviders: [
+                    {times: null, name: null, totalCost: null},
+                    {times: null, name: null, totalCost: null},
+                    {times: null, name: null, totalCost: null},
+                    {times: null, name: null, totalCost: null},
+                ],
                 otherServiceProvider: null,
                 needHelpFromFamily: null,
                 stayWithFamily: null,

@@ -2,7 +2,7 @@
     <section class="section">
       <div class="columns">
         <pre>
-          {{ form.patientCapital.companyPersons }}
+          {{ form.patientCapital }}
         </pre>
       </div>
         <div class="columns">
@@ -85,10 +85,22 @@
                           </b-field>
                           <b-field label="โปรดระบุรายละเอียด">
                               <div class="block">
-                                  <ServiceProvider title="โรงพยาบาลอื่น ๆ"></ServiceProvider>
-                                  <ServiceProvider title="คลินิก"></ServiceProvider>
-                                  <ServiceProvider title="ศูนย์บริการสาธารณสุข"></ServiceProvider>
-                                  <ServiceProvider title="อื่น ๆ"></ServiceProvider>
+                                  <ServiceProvider title="โรงพยาบาลอื่น ๆ"
+                                                   :provider="form.patientCapital.serviceProviders[0]"
+                                                   @mutate="mutateProvider(0, $event)">
+                                  </ServiceProvider>
+                                  <ServiceProvider title="คลินิก"
+                                                   :provider="form.patientCapital.serviceProviders[1]"
+                                                   @mutate="mutateProvider(1, $event)">
+                                  </ServiceProvider>
+                                  <ServiceProvider title="ศูนย์บริการสาธารณสุข"
+                                                   :provider="form.patientCapital.serviceProviders[2]"
+                                                   @mutate="mutateProvider(2, $event)">
+                                  </ServiceProvider>
+                                  <ServiceProvider title="อื่น ๆ"
+                                                   :provider="form.patientCapital.serviceProviders[3]"
+                                                   @mutate="mutateProvider(3, $event)">
+                                  </ServiceProvider>
                               </div>
                           </b-field>
                           <b-field label="26. ในช่วงระยะเวลา 1 ปีที่ผ่านมา (เมษายน 2561-เมษายน 2562) ผู้ป่วยต้องอาศัยญาติในการทำกิจกรรมหลักหรือไม่">
@@ -188,10 +200,14 @@
             }
         },
       methods: {
-          mutatePerson(idx, e) {
-            console.log(idx, e)
-            this.form.patientCapital.companyPersons[idx][e[0]] = e[1]
-          },
+        mutatePerson(idx, e) {
+          console.log(idx, e)
+          this.form.patientCapital.companyPersons[idx][e[0]] = e[1]
+        },
+        mutateProvider(idx, e) {
+          console.log(idx, e)
+          this.form.patientCapital.serviceProviders[idx][e[0]] = e[1]
+        },
         save() {
           let self = this
           this.$store.dispatch('saveForm').then(()=>{
