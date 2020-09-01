@@ -1,7 +1,6 @@
 <template>
   <section class="section">
     <div class="container">
-      <pre>{{hospitalInfo}}</pre>
       <div class="columns">
         <div class="column">
           <b-table :data="hospitals">

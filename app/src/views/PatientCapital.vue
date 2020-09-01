@@ -1,10 +1,5 @@
 <template>
     <section class="section">
-      <div class="columns">
-        <pre>
-          {{ form.patientCapital }}
-        </pre>
-      </div>
         <div class="columns">
             <div class="column">
                 <div class="container">

@@ -46,8 +46,9 @@ export default {
       this.$router.back()
     },
     save: function () {
+      let self = this
       this.$store.dispatch('updateUserProfile', this.userProfile).then(()=>{
-        this.$buefy.dialog.alert({
+        self.$buefy.dialog.alert({
           title: 'Profile Saved',
           message: 'ข้อมูลได้รับการบันทึกเรียบร้อยแล้ว',
         })

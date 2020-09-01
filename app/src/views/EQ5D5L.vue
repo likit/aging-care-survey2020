@@ -12,9 +12,6 @@
         <b-step-item step="5" label="MMSE-Thai 2002"></b-step-item>
       </b-steps>
       <h1 class="title">แบบสอบถาม EQ-5D-5L</h1>
-      <pre>
-        {{ form.EQ5D5L }}
-      </pre>
       <b-message title="การเคลื่อนไหว" :closable="false" type="is-primary">
         <div class="block">
           <b-radio size="is-medium" v-model="form.EQ5D5L.walk" native-value="1">

@@ -19,11 +19,6 @@
             </div>
         </div>
         <div class="">
-          <div class="columns">
-            <pre>
-              {{ form.patientRecord }}
-            </pre>
-          </div>
             <div class="columns">
                 <div class="column">
                     <div class="container">

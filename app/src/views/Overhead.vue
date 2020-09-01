@@ -12,9 +12,6 @@
         <b-step-item step="4" label="แบบประเมินคุณภาพชีวิต VAS"></b-step-item>
         <b-step-item step="5" label="MMSE-Thai 2002"></b-step-item>
       </b-steps>
-      <pre>
-            {{ form.overheads }}
-          </pre>
       <h1 class="title is-size-3">3. แบบบันทึกข้อมูลต้นทุน</h1>
       <h1 class="subtitle is-size-4">
         3.1 การบริการดูแลกลางวันแบบไปกลับ (Day care)

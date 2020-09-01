@@ -13,9 +13,6 @@
             </b-steps>
             <h1 class="title">แบบทดสอบสมรรถภาพเบื้องต้นฉบับภาษาไทย MMSE-Thai 2002</h1>
             <h1 class="subtitle">Mini-Mental State Examination-Thai 2002</h1>
-          <pre>
-            {{ form.mmse }}
-          </pre>
             <b-message title="1. Orientation for time: ทดสอบความรู้เกี่ยวกับเวลาปัจจุบัน (5 คะแนน)" type="is-primary" :closable="false">
                 <b-field grouped>
                     <b-input placeholder="1.1 วันนี้ วันที่เท่าไหร่" v-model="form.mmse.timeOrientation.q1_1.answer" expanded></b-input>

@@ -1,8 +1,10 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import Buefy from "buefy"
 import {userProfiles, forms, hospitals} from "@/firebase";
 
 Vue.use(Vuex)
+Vue.use(Buefy)
 
 function initialForm() {
     return {
@@ -427,6 +429,12 @@ export default new Vuex.Store({
             state.userProfile.id = doc.id
             state.userProfile.data = doc.data()
         },
+        SET_USER_PROFILE_ID(state, id) {
+            state.userProfile.id = id
+        },
+        SET_USER_PROFILE_EMAIL(state, email) {
+            state.userProfile.data.email = email
+        },
         CLEAR_USER_PROFILE(state) {
             state.userProfile.id = null
             state.userProfile.data = {}
@@ -506,34 +514,30 @@ export default new Vuex.Store({
                 })
             }
         },
-        fetchProfile({commit}, email) {
-            let self = this;
+        fetchProfile({commit, state}, email) {
             userProfiles.where('email', '==', email).get().then(
                 (snapshot) => {
-                    console.log(snapshot.docs[0])
                     commit('SET_USER_PROFILE_DATA', snapshot.docs[0])
                 }
             ).catch(() => {
-                self.$buefy.dialog.alert({
-                    title: 'โปรแกรมมีปัญหาในการโหลดข้อมูล',
-                    message: 'โปรแกรมไม่สามารถดาวน์โหลดข้อมูลทางอินเตอร์เน็ตได้ กรุณาตรวจสอบการเชื่อมต่อของท่านก่อนลองใช้งานอีกครั้ง',
-                    type: 'is-danger',
-                    hasIcon: true,
-                    icon: 'times-circle',
-                    iconPack: 'fa',
-                    ariaRole: 'alertdialog',
-                    ariaModal: true
-                })
+                console.log(state.user.email)
+                commit('SET_USER_PROFILE_EMAIL', state.user.email)
             })
         },
         updateUserProfile({commit}, profile) {
-            userProfiles.doc(profile.id).update(profile.data).then(
-                () => {
-                    commit('SET_USER_PROFILE_DATA', profile)
-                }
-            ).catch((error) => {
-                console.log(error)
-            })
+            if (profile.id !== null) {
+                userProfiles.doc(profile.id).update(profile.data).then(
+                    () => {
+                        commit('SET_USER_PROFILE_DATA', profile)
+                    }
+                ).catch((error) => {
+                    console.log(error)
+                })
+            } else {
+                userProfiles.add(profile.data).then((docRef)=>{
+                    commit('SET_USER_PROFILE_ID', docRef.id)
+                })
+            }
         },
         updateFormCreator({commit}) {
             commit('SET_FORM_CREATOR')
@@ -579,6 +583,7 @@ export default new Vuex.Store({
             commit('RESET_FORM')
         },
         logoutUser({commit}) {
+            commit('RESET_FORM')
             commit('CLEAR_USER_PROFILE')
             commit('SET_CURRENT_USER', null)
             commit('SET_LOGIN_FALSE')
